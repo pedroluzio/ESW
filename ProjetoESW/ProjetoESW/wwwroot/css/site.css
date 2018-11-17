@@ -9289,3 +9289,9 @@ a.text-dark:hover, a.text-dark:focus {
     color: black;
     border-bottom: solid 2px #cf5c36;
 }
+
+.page-title{
+    border-bottom: solid 2px red;
+    text-align:center;
+    text-transform: uppercase;
+}
