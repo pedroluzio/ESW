@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using ProjetoESW.Models;
 
 namespace ProjetoESW.Data
 {
@@ -12,5 +13,6 @@ namespace ProjetoESW.Data
             : base(options)
         {
         }
+        public DbSet<ProjetoESW.Models.Volunteer> Volunteer { get; set; }
     }
 }
