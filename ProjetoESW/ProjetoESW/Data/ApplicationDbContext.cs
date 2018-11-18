@@ -14,5 +14,12 @@ namespace ProjetoESW.Data
         {
         }
         public DbSet<ProjetoESW.Models.Volunteer> Volunteer { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Volunteer>()
+                .Property(e => e.Date_Regist).HasDefaultValueSql("getutcdate()");
+        }
     }
 }

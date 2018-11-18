@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+<h2>Editar Voluntário</h2>
 
-<h4>Volunteer</h4>
+<h4>@Html.DisplayFor(model => model.Name)</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -30,19 +30,15 @@
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Date_Regist" class="control-label"></label>
-                <input asp-for="Date_Regist" class="form-control" />
-                <span asp-validation-for="Date_Regist" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <span onclick="document.getElementById('submeter').click();" style="cursor:pointer;" class="btn btn-primary btn-export"><i class="far fa-save"></i> Guardar</span>
+                <input id="submeter" style="display:none" type="submit" value="Guardar" class="btn btn-primary btn-export"></input>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Voltar</a>
 </div>
 
 @section Scripts {
