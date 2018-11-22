@@ -25,7 +25,9 @@
                 <label asp-for="Input.Password"></label>
                 <div class="tooltip">
                     <i class="fas fa-question-circle"></i>
-                    <span class="tooltiptext">Insira a sua password. Deverá ter entre <b>6</b> e <b>100</b> caracteres.</span>
+                    <span class="tooltiptext">Insira a sua password. <br />
+                                                Deverá ter entre <b>6</b> e <b>100</b> caracteres. <br />
+                                                Não pode ser igual ao seu username.</span>
                 </div>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>

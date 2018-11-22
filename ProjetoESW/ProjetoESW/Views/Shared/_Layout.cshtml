@@ -1,76 +1,47 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+
 <html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - ProjetoESW</title>
+<partial name="_head" />
+<body class="theme-pl">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 
-    <link href="~/lib/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="~/css/site.css" />
 
-</head>
-<body>
-    <nav class="navbar navbar-expand-md navbar-light">
-        <div class="container">
-            <a class="navbar-brand text-primary" href="../Home">
-                <i class="fa d-inline fa-lg fa-stop-circle"></i>
-                <b> BRAND</b>
-            </a> <button class="navbar-toggler navbar-toggler-right border-0" type="button" data-toggle="collapse" data-target="#navbar4">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbar4">
-                <partial name="_LoginPartial" />
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <partial name="_topBar" />
+        <div class="overlay"></div>
+        <partial name="_pageLoader" />
+
+        <section>
+            <partial name="_sidebar" />
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+
+                @RenderBody()
+
             </div>
-        </div>
-    </nav>
+        </section>
 
-    <partial name="_CookieConsentPartial" />
-
-
-
-    <div class="py-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    @RenderBody()
-                </div>
-            </div>
-        </div>
-    </div>
+        <partial name="_footer" />
+    }
+    else
+    {
+        <h1>Not Login</h1>
+        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registar</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
+        @RenderBody()
+    }
 
 
 
 
-    <hr />
-    <footer>
-        <p>&copy; 2018 - ProjetoESW</p>
-    </footer>
 
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -48,6 +48,7 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "A {0} tem de ter entre {2} e {1} caracteres.", MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
+            //[ContainsUsername("Email",ErrorMessage ="A Password não pode conter o username")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]

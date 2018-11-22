@@ -1,0 +1,47 @@
+﻿
+.theme-pl .navbar {
+    background-color: #cf5c36;
+    border-top: solid 5px #5e3023;
+}
+
+.theme-pl .navbar-brand {
+  color: #fff; }
+  .theme-pl .navbar-brand:hover {
+    color: #fff; }
+  .theme-pl .navbar-brand:active {
+    color: #fff; }
+  .theme-pl .navbar-brand:focus {
+    color: #fff; }
+
+.theme-pl .nav > li > a {
+  color: #fff; }
+  .theme-pl .nav > li > a:hover {
+    background-color: transparent; }
+  .theme-pl .nav > li > a:focus {
+    background-color: transparent; }
+
+.theme-pl .nav .open > a {
+  background-color: transparent; }
+  .theme-pl .nav .open > a:hover {
+    background-color: transparent; }
+  .theme-pl .nav .open > a:focus {
+    background-color: transparent; }
+
+.theme-pl .bars {
+  color: #fff; }
+
+.theme-pl .sidebar .menu .list li.active {
+  background-color: transparent; }
+  .theme-pl .sidebar .menu .list li.active > :first-child i, .theme-pl .sidebar .menu .list li.active > :first-child span {
+    color: #5e3023; }
+
+.theme-pl .sidebar .menu .list .toggled {
+  background-color: transparent; }
+
+.theme-pl .sidebar .menu .list .ml-menu {
+  background-color: transparent; }
+
+.theme-pl .sidebar .legal {
+  background-color: #fff; }
+  .theme-pl .sidebar .legal .copyright a {
+    color: #F44336 !important; }
