@@ -3,15 +3,12 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
+@if (SignInManager.IsSignedIn(User))
+{
 
-<html>
-<partial name="_head" />
-<body class="theme-pl">
-
-
-
-    @if (SignInManager.IsSignedIn(User))
-    {
+    <html>
+    <partial name="_head" />
+    <body class="theme-pl">
         <partial name="_topBar" />
         <div class="overlay"></div>
         <partial name="_pageLoader" />
@@ -29,20 +26,65 @@
         </section>
 
         <partial name="_footer" />
-    }
-    else
-    {
-        <h1>Not Login</h1>
-        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registar</a></li>
-        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
-        @RenderBody()
-    }
+        @RenderSection("Scripts", required: false)
+    </body>
+</html>
+
+}
+else
+{
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>FPP - Plataforma</title>
+    <link rel="icon" href="~/favicon.ico" type="image/x-icon">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+    <!-- Bootstrap Core Css -->
+    <link href="~/plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Waves Effect Css -->
+    <link href="~/plugins/node-waves/waves.css" rel="stylesheet" />
+    <!-- Animation Css -->
+    <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />
+    <!-- Custom Css -->
+    <link href="~/css/style.css" rel="stylesheet">
+   
+    <link href="~/css/login.css" rel="stylesheet" />
 
 
+</head>
+<body>
 
 
+    <div class="login-box" style="width:40%; margin:auto; padding-top:5%;">
+        <!--div class="logo">
+            <a href="javascript:void(0);"><img src="images/fppLogoCores.png"></a>
+        </div-->
+        <div class="card">
+            <div class="header" style="padding:0px;">
+                <a class="choose" asp-area="Identity" asp-page="/Account/Login">ENTRAR</a>
+                <a class="choose" asp-area="Identity" asp-page="/Account/Register">REGISTAR</a>
+            </div>
+            <div class="body">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
 
-
+    <partial name="_footer" />
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+
+
+
+}
+
+
+
+
+

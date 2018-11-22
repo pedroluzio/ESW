@@ -44,7 +44,7 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
-            [Display(Name = "Lembrar-me?")]
+            [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
         }
 
@@ -90,7 +90,7 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Credenciais de acesso erradas!");
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
                     return Page();
                 }
             }

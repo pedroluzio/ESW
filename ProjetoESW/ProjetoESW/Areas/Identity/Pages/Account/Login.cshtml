@@ -5,7 +5,72 @@
     ViewData["Title"] = "Entrar";
 }
 
-<div class="row">
+
+            <form id="sign_in" action="actions/doLogin.php" method="POST">
+                <div class="msg">Faça Login para entrar</div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">person</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="text" class="form-control" name="username" placeholder="E-mail" required autofocus>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="material-icons">lock</i>
+                    </span>
+                    <div class="form-line">
+                        <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <button class="btn btn-block bg-primary waves-effect" type="submit">Login</button>
+                    </div>
+                </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <section>
@@ -46,7 +111,8 @@
         </section>
     </div>
     <div class="col-md-4"></div>
-</div>
+
+</div-->
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
