@@ -52,7 +52,13 @@ else
     <link href="~/plugins/animate-css/animate.css" rel="stylesheet" />
     <!-- Custom Css -->
     <link href="~/css/style.css" rel="stylesheet">
-   
+
+    <!-- Font Awsome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+    <!-- AdminBSB Themes. You can choose a theme from css/themes instead of get all themes -->
+    <link href="~/css/themes/all-themes.css" rel="stylesheet" />
+
     <link href="~/css/login.css" rel="stylesheet" />
 
 
@@ -66,8 +72,8 @@ else
         </div-->
         <div class="card">
             <div class="header" style="padding:0px;">
-                <a class="choose" asp-area="Identity" asp-page="/Account/Login">ENTRAR</a>
-                <a class="choose" asp-area="Identity" asp-page="/Account/Register">REGISTAR</a>
+                <a class="choose  @(ViewData["Title"].ToString()=="Entrar" ? "choose-active":"")" asp-area="Identity" asp-page="/Account/Login">ENTRAR</a>
+                <a class="choose  @(ViewData["Title"].ToString()=="Register" ? "choose-active":"")" asp-area="Identity" asp-page="/Account/Register">REGISTAR</a>
             </div>
             <div class="body">
                 @RenderBody()

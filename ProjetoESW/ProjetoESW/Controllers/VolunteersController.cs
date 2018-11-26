@@ -54,7 +54,7 @@ namespace ProjetoESW.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Email,Telephone,Date_Regist")] Volunteer volunteer)
+        public async Task<IActionResult> Create([Bind("ID,Name,Username,Telephone,Date_Regist")] Volunteer volunteer)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace ProjetoESW.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Email,Telephone,Date_Regist")] Volunteer volunteer)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,Username,Telephone,Date_Regist")] Volunteer volunteer)
         {
             if (id != volunteer.ID)
             {

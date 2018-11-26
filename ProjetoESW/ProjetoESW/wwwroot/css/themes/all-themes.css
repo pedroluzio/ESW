@@ -45,3 +45,28 @@
   background-color: #fff; }
   .theme-pl .sidebar .legal .copyright a {
     color: #F44336 !important; }
+
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+    opacity: 1;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}

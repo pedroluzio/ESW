@@ -6,18 +6,15 @@
 
 @inject UserManager<IdentityUser> UserManager
 
-<h2>Perfil de Utilizador</h2>
 
-<div>
-    <h4>@UserManager.GetUserName(User)</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
+
+<div class="card">
+    <div class="header">
+        <h2>Perfil de Utilizador</h2>
+        <span>UserManager.GetUserName(User)</span>
+    </div>
+    <div class="body">
             @RenderBody()
-        </div>
     </div>
 </div>
 

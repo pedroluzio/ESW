@@ -5,12 +5,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Editar Voluntário</h2>
-
-<h4>@Html.DisplayFor(model => model.Name)</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="card">
+    <div class="header">
+        <h2>Editar Voluntário</h2>
+        <span>@Html.DisplayFor(model => model.Name)</span>
+    </div>
+    <div class="body">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
@@ -30,15 +30,13 @@
                 <span asp-validation-for="Telephone" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <span onclick="document.getElementById('submeter').click();" style="cursor:pointer;" class="btn btn-primary btn-export"><i class="far fa-save"></i> Guardar</span>
+                <span onclick="document.getElementById('submeter').click();" style="cursor:pointer;" class="btn btn-primary btn-export"><i class="fa fa-save"></i> Guardar</span>
                 <input id="submeter" style="display:none" type="submit" value="Guardar" class="btn btn-primary btn-export"></input>
+                <a asp-action="Index"><span class="btn btn-primary btn-export"><i class="fa fa-backward"></i> Voltar</span></a>
             </div>
         </form>
-    </div>
-</div>
 
-<div>
-    <a asp-action="Index">Voltar</a>
+    </div>
 </div>
 
 @section Scripts {

@@ -5,29 +5,27 @@
 }
 
 <div class="row">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
+    <div class="col-md-12">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h4>Criar Novo Utilizador</h4>
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label asp-for="Input.Username"></label>
                 <div class="tooltip">
-                    <i class="fas fa-question-circle"></i>
+                    <i class="fa fa-question-circle"></i>
                     <span class="tooltiptext">Insira o seu username</span>
                 </div>
-                <input asp-for="Input.Email" class="form-control" /> 
+                <input asp-for="Input.Username" class="form-control" /> 
                 
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.Password"></label>
                 <div class="tooltip">
-                    <i class="fas fa-question-circle"></i>
+                    <i class="fa fa-question-circle"></i>
                     <span class="tooltiptext">Insira a sua password. <br />
-                                                Deverá ter entre <b>6</b> e <b>100</b> caracteres. <br />
-                                                Não pode ser igual ao seu username.</span>
+                                                Deverá ter entre <b>6</b> e <b>100</b> caracteres. <br /></span>
                 </div>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
@@ -37,10 +35,9 @@
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button type="submit" class="btn btn-default">Registar</button>
+            <button type="submit" class="btn btn-block bg-primary waves-effect">Registar</button>
         </form>
     </div>
-    <div class="col-md-4"></div>
 </div>
 
 @section Scripts {

@@ -36,11 +36,11 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "Username é obrigatório")]
+            [Display(Name = "Username")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Password é obrigatória")]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -85,12 +85,12 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning("User account locked out.");
+                    _logger.LogWarning("Conta de utilizador inválida.");
                     return RedirectToPage("./Lockout");
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, "Login inválido.");
                     return Page();
                 }
             }

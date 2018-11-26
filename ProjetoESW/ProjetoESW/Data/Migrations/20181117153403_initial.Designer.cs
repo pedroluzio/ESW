@@ -75,7 +75,7 @@ namespace ProjetoESW.Data.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Username")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");

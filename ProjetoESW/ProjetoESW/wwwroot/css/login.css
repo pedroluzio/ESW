@@ -13,11 +13,14 @@ body {
 .choose {
     width: 49%;
     display: inline-block;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     text-align: center;
 }
 
     .choose:hover {
         text-decoration: none;
     }
+.choose-active {
+    border-bottom: #5e3023 solid 5px;
+}

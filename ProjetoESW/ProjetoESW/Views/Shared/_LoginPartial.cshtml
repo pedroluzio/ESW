@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+ï»¿@using Microsoft.AspNetCore.Identity
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -6,81 +6,36 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <ul class="list">
+    
+    
+
+}
+else
+{<ul class="list">
         <li class=" ">
-            <a asp-area="" asp-controller="Home" asp-action="Index">
-                <i class="material-icons">home</i>
-                <span>Início</span>
+            <a asp-area="Identity" asp-page="/Account/Login">
+                <span>Entrar</span>
             </a>
         </li>
         <li class=" ">
-            <a href="#">
-                <i class="material-icons">person</i>
-                <span>Voluntários</span>
-            </a>
-        </li>
-        <li class=" ">
-            <a href="#">
-                <i class="material-icons">person</i>
-                <span>Utilizadores</span>
-            </a>
-        </li>
-        <li class=" ">
-            <a href="#">
-                <i class="material-icons">person</i>
-                <span>Animais</span>
-            </a>
-        </li>
-        <li class=" ">
-            <a href="#">
-                <i class="material-icons">person</i>
-                <span>Colónias</span>
+            <a asp-area="Identity" asp-page="/Account/Register">
+                <span>Registar</span>
             </a>
         </li>
     </ul>
 }
-else
-{<ul class="list">
-    <li class=" ">
-        <a asp-area="Identity" asp-page="/Account/Login">
-            <span>Entrar</span>
-        </a>
-    </li>
-    <li class=" ">
-        <a asp-area="Identity" asp-page="/Account/Register">
-            <span>Registar</span>
-        </a>
-    </li>
-</ul>
+
+
+
+
+@if (SignInManager.IsSignedIn(User))
+{
 
 }
-
-
-
-
-    @if (SignInManager.IsSignedIn(User))
-    {
-        <!----form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="nav-item"> <a class="nav-link" href="../Volunteers">Voluntários</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Utilizadores</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Animais</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="#">Colónias</a> </li>
-
-                <li class="nav-item">
-                    <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserName(User)!</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" style="cursor:pointer;" onclick="document.getElementById('btn-sair').click();">Sair</a>
-                    <button style="display:none;" id="btn-sair" class="nav-item" type="submit">Sair</button>
-                </li>
-            </ul>
-        </form-->
-    }
-    else
-    {
-        <!--ul class="nav navbar-nav navbar-right">
-            <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registar</a></li>
-            <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
-        </ul-->
-    }
+else
+{
+    <!--ul class="nav navbar-nav navbar-right">
+        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Registar</a></li>
+        <li class="nav-item"><a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Entrar</a></li>
+    </ul-->
+}

@@ -2976,14 +2976,18 @@ section.content {
         .card .header .header-dropdown i:hover {
           color: #000; }
     .card .header h2 {
-      margin: 0;
-font-size: x-large;
-font-weight: bold;
-text-transform: uppercase;
-color: #DE202D;
-border-bottom: solid #539E34 5px;
-padding-bottom: 10px;
-}
+        margin: 0;
+        font-size: x-large;
+        font-weight: bold;
+        text-transform: uppercase;
+        color: #cf5c36;
+        border-bottom: solid #5e3023 5px;
+        padding-bottom: 10px;
+    }
+    .card .header span{
+        font-size: initial;
+        font-weight: bold;
+    }
       .card .header h2 small {
         display: block;
         font-size: 12px;
@@ -7539,7 +7543,7 @@ fieldset[disabled] .form-control {
       cursor: default;
       display: block;
       position: relative;
-      top: 25px; }
+      }
       .sidebar .user-info .info-container .name {
         white-space: nowrap;
         -ms-text-overflow: ellipsis;
@@ -8066,4 +8070,11 @@ a{
 }
 a:hover{
     color:#800020;
+}
+
+#top-bar {
+    background: url('../images/logo.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    padding-left: 70px;
 }
