@@ -43,12 +43,6 @@ namespace ProjetoESW.Models
                 await roleManager.CreateAsync(colonyRole);
             }
 
-            var userRole = new IdentityRole("UserRole");
-            if (!await roleManager.RoleExistsAsync(userRole.Name))
-            {
-                await roleManager.CreateAsync(userRole);
-            }
-
             var admin = new User { UserName = "admin", Nome = "Admin", Email="admin@esw.pt" };
             var result = await userManager.CreateAsync(admin, "Abc123!");
         }

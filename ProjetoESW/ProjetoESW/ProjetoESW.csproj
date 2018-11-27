@@ -11,7 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Identity\Data\" />
     <Folder Include="Areas\Identity\Services\" />
+    <Folder Include="Views\Users\" />
   </ItemGroup>
 
 </Project>
