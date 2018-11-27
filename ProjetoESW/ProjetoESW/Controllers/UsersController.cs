@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using ProjetoESW.Data;
+using ProjetoESW.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,9 +19,15 @@ namespace ProjetoESW.Controllers
             _context = context;
         }
 
+        // GET
+        [HttpGet]
+        [Authorize(Roles="Administrator")]
         public IActionResult Index()
         {
-            return View(_context.Users.ToList());
+            ChangeRoleModel model = new ChangeRoleModel();
+            model.Roles = new List<IdentityRole>(_context.Roles.ToList());
+            model.Users = new List<User>(_context.Users.ToList());
+            return View("ChangeRole", model);
         }
     }
 }

@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoESW.Data;
 
-namespace ProjetoESW.Data.Migrations
+namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181127000906_fix")]
-    partial class fix
+    [Migration("20181127101656_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,7 +131,7 @@ namespace ProjetoESW.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Areas.Identity.Data.User", b =>
+            modelBuilder.Entity("ProjetoESW.Models.User", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -149,9 +149,6 @@ namespace ProjetoESW.Data.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
-
-                    b.Property<string>("Nome")
-                        .IsRequired();
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -216,7 +213,7 @@ namespace ProjetoESW.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ProjetoESW.Areas.Identity.Data.User")
+                    b.HasOne("ProjetoESW.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -224,7 +221,7 @@ namespace ProjetoESW.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ProjetoESW.Areas.Identity.Data.User")
+                    b.HasOne("ProjetoESW.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -237,7 +234,7 @@ namespace ProjetoESW.Data.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ProjetoESW.Areas.Identity.Data.User")
+                    b.HasOne("ProjetoESW.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -245,7 +242,7 @@ namespace ProjetoESW.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ProjetoESW.Areas.Identity.Data.User")
+                    b.HasOne("ProjetoESW.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

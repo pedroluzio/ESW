@@ -15,15 +15,6 @@ namespace ProjetoESW.Models
         {
             context.Database.EnsureCreated();
 
-            // Look for any Volunteer.
-            if (context.Volunteer.Any())
-            {
-                // A base de dados foi inicializada antes
-                return; 
-            }
-
-            context.SaveChanges();
-
             var adminRole = new IdentityRole("Administrator");
             if (!await roleManager.RoleExistsAsync(adminRole.Name))
             {
@@ -42,8 +33,10 @@ namespace ProjetoESW.Models
                 await roleManager.CreateAsync(colonyRole);
             }
 
-            var admin = new User { UserName = "admin", Name = "Admin", Email="admin@esw.pt" };
+            var admin = new User { UserName = "admin@esw.pt", Email="admin@esw.pt" };
             var result = await userManager.CreateAsync(admin, "Abc123!");
+
+            await userManager.AddToRoleAsync(admin, adminRole.Name);
         }
     }
 }

@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ProjetoESW.Data.Migrations
+namespace ProjetoESW.Migrations
 {
-    public partial class CreateIdentitySchema : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,6 +45,22 @@ namespace ProjetoESW.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Volunteer",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Email = table.Column<string>(nullable: true),
+                    Telephone = table.Column<string>(nullable: true),
+                    Date_Regist = table.Column<DateTime>(nullable: true, defaultValueSql: "getutcdate()")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Volunteer", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -93,8 +109,8 @@ namespace ProjetoESW.Data.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -138,8 +154,8 @@ namespace ProjetoESW.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -209,6 +225,9 @@ namespace ProjetoESW.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Volunteer");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
