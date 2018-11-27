@@ -13,6 +13,7 @@ using ProjetoESW.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using ProjetoESW.Areas.Identity.Data;
+using ProjetoESW.Models;
 
 namespace ProjetoESW
 {
@@ -55,8 +56,9 @@ namespace ProjetoESW
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI()
                 .AddDefaultTokenProviders();
+
 
             /*
             services.Configure<IdentityOptions>(options =>
@@ -101,6 +103,6 @@ namespace ProjetoESW
             });
         }
 
-
+        
     }
 }
