@@ -14,6 +14,7 @@ namespace ProjetoESW.Models
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
+        [EmailAddress]
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
