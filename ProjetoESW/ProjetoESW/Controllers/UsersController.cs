@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjetoESW.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class UsersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -21,7 +22,6 @@ namespace ProjetoESW.Controllers
 
         // GET
         [HttpGet]
-        [Authorize(Roles="Administrator")]
         public IActionResult Index()
         {
             ChangeRoleModel model = new ChangeRoleModel();

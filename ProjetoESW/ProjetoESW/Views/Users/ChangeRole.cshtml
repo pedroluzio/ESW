@@ -7,14 +7,47 @@
 
 <h2>Lista de Utilizadores</h2>
 
-<!--<div>
-    <form method="post" class="body">
-        <input asp-for="Email" type="text" id="emailField" style="visibility:hidden"/>
-        <span asp-validation-for="Email" class="form-control"></span><br />
 
-        <select asp-for="Rolename"
-    </form>
-</div>-->
+<div class="table-responsive">
+    <table id="volunteers" class="table table-striped table-hover dataTable js-exportable">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Users)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rolename)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Users)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.Id"><i class="fa fa-eye"></i></a>
+                        <a asp-action="Edit" asp-route-id="@item.Id"><i class="fa fa-edit"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.Id"><i class="fa fa-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 
 @section Scripts {
 

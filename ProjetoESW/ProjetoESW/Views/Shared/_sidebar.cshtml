@@ -13,7 +13,7 @@
         <div class="user-info">
             <div class="info-container">
                 <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><b>@UserManager.GetUserName(User)</b></div>
-                
+
             </div>
         </div>
         <!-- #User Info -->
@@ -28,33 +28,36 @@
                             <span>Inicio</span>
                         </a>
                     </li>
-                    <li>					
-                        <a class="menu-toggle waves-effect waves-block">
-                            <i class="material-icons">group</i>
-                            <span>Voluntários</span>
-                        </a>						
-                        <ul class="ml-menu">
-                            <li class=" ">
-                                <a asp-area="" asp-controller="Volunteers" asp-action="Index">
-                                    <i class="material-icons">list</i>
-                                    <span>Listagem</span>
-                                </a>
-                            </li>
-                            <li class=" ">
-                                <a asp-area="" asp-controller="Volunteers" asp-action="Create">
-                                    <i class="material-icons">add</i>
-                                    <span>Adicionar Novo</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    @if (User.IsInRole("Administrator") || User.IsInRole("ColonyManager"))
+                    {
+                        <li>
+                            <a class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">group</i>
+                                <span>Voluntários</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li class=" ">
+                                    <a asp-area="" asp-controller="Volunteers" asp-action="Index">
+                                        <i class="material-icons">list</i>
+                                        <span>Listagem</span>
+                                    </a>
+                                </li>
+                                <li class=" ">
+                                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">
+                                        <i class="material-icons">add</i>
+                                        <span>Adicionar Novo</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li>					
+                        <li>
                             <a class="menu-toggle waves-effect waves-block">
                                 <i class="material-icons">group</i>
                                 <span>Utilizadores</span>
-                            </a>						
+                            </a>
                             <ul class="ml-menu">
                                 <li class=" ">
                                     <a asp-area="" asp-controller="Users" asp-action="Index">
@@ -66,22 +69,22 @@
                         </li>
                     }
                     <hr />
-                    <li>					
+                    <li>
                         <a class="menu-toggle waves-effect waves-block">
                             <i class="material-icons">person</i>
                             <span>Minha Conta</span>
-                        </a>						
+                        </a>
                         <ul class="ml-menu">
                             <li class=" ">
                                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
-                                <i class="material-icons">person</i>
-                                <span>Dados Pessoais</span>
+                                    <i class="material-icons">person</i>
+                                    <span>Dados Pessoais</span>
                                 </a>
                             </li>
                             <li class=" ">
                                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">
-                                <i class="material-icons">person</i>
-                                <span>Mudar Password</span>
+                                    <i class="material-icons">person</i>
+                                    <span>Mudar Password</span>
                                 </a>
                             </li>
                             <li class=" ">
