@@ -22,5 +22,7 @@ namespace ProjetoESW.Data
             modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Date_Regist).HasDefaultValueSql("getutcdate()");
         }
+
+        public DbSet<ProjetoESW.Models.RoleViewModel> RoleViewModel { get; set; }
     }
 }

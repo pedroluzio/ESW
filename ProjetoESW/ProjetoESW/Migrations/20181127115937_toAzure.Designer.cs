@@ -10,8 +10,8 @@ using ProjetoESW.Data;
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181127101656_initial")]
-    partial class initial
+    [Migration("20181127115937_toAzure")]
+    partial class toAzure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -129,6 +129,18 @@ namespace ProjetoESW.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.RoleViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleViewModel");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.User", b =>

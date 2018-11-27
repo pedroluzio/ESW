@@ -129,6 +129,18 @@ namespace ProjetoESW.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("ProjetoESW.Models.RoleViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleViewModel");
+                });
+
             modelBuilder.Entity("ProjetoESW.Models.User", b =>
                 {
                     b.Property<string>("Id")
