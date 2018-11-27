@@ -3396,16 +3396,32 @@ section.content {
     font-weight: bold; }
 
 .alert-success {
-  background-color: #2b982b; }
+  color: #2b982b !important; 
+  background-color:white !important;
+  font-weight: bold;
+  font-size:initial;
+}
 
 .alert-info {
-  background-color: #00b0e4; }
+    color: #00b0e4;
+    background-color: white !important;
+    font-weight: bold;
+    font-size: initial;
+}
 
 .alert-warning {
-  background-color: #ff9600 !important; }
+    color: #ff9600 !important;
+    background-color: white !important;
+    font-weight: bold;
+    font-size: initial;
+}
 
 .alert-danger {
-  background-color: #fb483a !important; }
+    color: #fb483a !important;
+    background-color: white !important;
+    font-weight: bold;
+    font-size: initial;
+}
 
 .alert-dismissible .close {
   color: #fff;

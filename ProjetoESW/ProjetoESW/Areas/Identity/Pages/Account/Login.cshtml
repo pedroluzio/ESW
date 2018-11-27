@@ -24,12 +24,9 @@
                     <span asp-validation-for="Input.Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-block bg-primary waves-effect">Entrar</button>
+                    <button type="submit" class="btn btn-block btn-primary waves-effect">Entrar</button>
                 </div>
                 <div class="form-group">
-                    <p>
-                        <a asp-page="./ForgotPassword">Esqueceu-se da password?</a>
-                    </p>
                     <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Ainda não tenho conta. Quero Registar-me</a>
                     </p>
