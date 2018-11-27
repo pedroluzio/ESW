@@ -43,29 +43,14 @@ namespace ProjetoESW.Models
                 await roleManager.CreateAsync(colonyRole);
             }
 
-            var admin = new User { UserName = "admin", Nome = "Admin" };
+            var userRole = new IdentityRole("UserRole");
+            if (!await roleManager.RoleExistsAsync(userRole.Name))
+            {
+                await roleManager.CreateAsync(userRole);
+            }
+
+            var admin = new User { UserName = "admin", Nome = "Admin", Email="admin@esw.pt" };
             var result = await userManager.CreateAsync(admin, "Abc123!");
-
-            if (result.Succeeded)
-            {
-                await userManager.AddToRoleAsync(admin, "Administrator");
-            }
-
-            var assetManager = new User { UserName = "assetmanager", Nome = "AssetManager" };
-            var result2 = await userManager.CreateAsync(assetManager, "Abc123!");
-
-            if (result2.Succeeded)
-            {
-                await userManager.AddToRoleAsync(assetManager, "AssetManager");
-            }
-
-            var colonyManager = new User { UserName = "colonymanager", Nome = "ColonyManager" };
-            var result3 = await userManager.CreateAsync(colonyManager, "Abc123!");
-
-            if (result3.Succeeded)
-            {
-                await userManager.AddToRoleAsync(assetManager, "AssetManager");
-            }
         }
     }
 }
