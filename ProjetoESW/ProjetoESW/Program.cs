@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ProjetoESW.Areas.Identity.Data;
 using ProjetoESW.Data;
 using ProjetoESW.Models;
 

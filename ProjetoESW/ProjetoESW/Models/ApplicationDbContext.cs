@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using ProjetoESW.Areas.Identity.Data;
 using ProjetoESW.Models;
 
 namespace ProjetoESW.Data

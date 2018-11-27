@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ProjetoESW.Areas.Identity;
-using ProjetoESW.Areas.Identity.Data;
 using ProjetoESW.Data;
 
 namespace ProjetoESW.Models
@@ -43,7 +42,7 @@ namespace ProjetoESW.Models
                 await roleManager.CreateAsync(colonyRole);
             }
 
-            var admin = new User { UserName = "admin", Nome = "Admin", Email="admin@esw.pt" };
+            var admin = new User { UserName = "admin", Name = "Admin", Email="admin@esw.pt" };
             var result = await userManager.CreateAsync(admin, "Abc123!");
         }
     }

@@ -10,6 +10,7 @@ namespace ProjetoESW.Models
     public class User : IdentityUser
     {
         [Required(ErrorMessage = "O {0} é obrigatório")]
-        public string Nome { get; set; }
+        public string Name { get; set; }
+
     }
 }

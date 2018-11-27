@@ -12,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProjetoESW.Areas.Identity.Data;
 using ProjetoESW.Models;
 
 namespace ProjetoESW
