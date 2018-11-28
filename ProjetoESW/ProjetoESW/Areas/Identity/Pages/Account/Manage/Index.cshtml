@@ -10,19 +10,19 @@
     <div asp-validation-summary="All" class="text-danger"></div>
     <div class="form-group">
         <label asp-for="Username"></label>
-        <input asp-for="Username" class="form-control" disabled />
+        <input asp-for="Username" class="form-control form-line" disabled />
     </div>
     <div class="form-group">
         <label asp-for="Input.Email"></label>
         <div class="input-group">
-            <input asp-for="Input.Email" class="form-control" />
+            <input asp-for="Input.Email" class="form-control form-line" />
             <span class="input-group-addon" aria-hidden="true"><span class="glyphicon glyphicon-ok text-success"></span></span>
         </div>
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label asp-for="Input.PhoneNumber"></label>
-        <input asp-for="Input.PhoneNumber" class="form-control" />
+        <input asp-for="Input.PhoneNumber" class="form-control form-line" />
         <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
     </div>
     <span onclick="document.getElementById('guadar').click();" style="cursor:pointer;" class="btn btn-primary btn-export"><i class="fa fa-save"></i> Guardar</span>

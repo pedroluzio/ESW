@@ -28,6 +28,7 @@ namespace ProjetoESW
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -45,6 +46,9 @@ namespace ProjetoESW
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            /*services.AddIdentity<User, IdentityRole>()
+                .AddErrorDescriber<PortugueseIdentityErrorDescriber>(); // Add this line
+            */    
             services.AddIdentity<User, IdentityRole>(options =>
             {
                 // Password settings
@@ -56,7 +60,7 @@ namespace ProjetoESW
                 options.Password.RequireLowercase = false;
             })
             .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI()
-                .AddDefaultTokenProviders();
+                .AddDefaultTokenProviders().AddErrorDescriber<PortugueseIdentityErrorDescriber>();
 
 
             /*

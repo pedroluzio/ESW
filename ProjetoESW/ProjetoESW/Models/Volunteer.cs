@@ -18,6 +18,7 @@ namespace ProjetoESW.Models
         [Display(Name = "E-mail")]
         public string Email { get; set; }
 
+        [Phone(ErrorMessage = "Número de Telemóvel inválido!")]
         [Display(Name = "Num. Telemóvel")]
         public string Telephone { get; set; }
 

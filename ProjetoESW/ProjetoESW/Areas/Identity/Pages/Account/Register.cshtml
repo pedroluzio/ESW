@@ -8,7 +8,6 @@
     <div class="col-md-12">
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <h4>Criar Novo Utilizador</h4>
-            <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Username"></label>
@@ -16,7 +15,7 @@
                     <i class="fa fa-question-circle"></i>
                     <span class="tooltiptext">Insira o seu username</span>
                 </div>
-                <input asp-for="Input.Username" class="form-control" /> 
+                <input asp-for="Input.Username" class="form-control form-line" /> 
                 
                 <span asp-validation-for="Input.Username" class="text-danger"></span>
             </div>
@@ -27,12 +26,12 @@
                     <span class="tooltiptext">Insira a sua password. <br />
                                                 Deverá ter entre <b>6</b> e <b>100</b> caracteres. <br /></span>
                 </div>
-                <input asp-for="Input.Password" class="form-control" />
+                <input asp-for="Input.Password" class="form-control form-line" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Input.ConfirmPassword"></label>
-                <input asp-for="Input.ConfirmPassword" class="form-control" />
+                <input asp-for="Input.ConfirmPassword" class="form-control form-line" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-block btn-primary waves-effect">Registar</button>
