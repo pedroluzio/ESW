@@ -70,3 +70,11 @@
 .tooltip:hover .tooltiptext {
     visibility: visible;
 }
+
+.swal2-popup{
+    font-size: inherit !important;
+}
+
+.table, table, .btn-primary, .btn, html, body, .body {
+    font-size: 14px !important;
+}

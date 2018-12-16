@@ -21,19 +21,26 @@ namespace ProjetoESW.Models
                 await roleManager.CreateAsync(adminRole);
             }
 
-            var assetRole = new IdentityRole("AssetManager");
-            if (!await roleManager.RoleExistsAsync(assetRole.Name))
+            var stocksRole = new IdentityRole("Gestor de Stocks");
+            if (!await roleManager.RoleExistsAsync(stocksRole.Name))
             {
-                await roleManager.CreateAsync(assetRole);
+                await roleManager.CreateAsync(stocksRole);
             }
 
-            var colonyRole = new IdentityRole("ColonyManager");
-            if (!await roleManager.RoleExistsAsync(colonyRole.Name))
+
+            var RHRole = new IdentityRole("Gestor de RH");
+            if (!await roleManager.RoleExistsAsync(RHRole.Name))
             {
-                await roleManager.CreateAsync(colonyRole);
+                await roleManager.CreateAsync(RHRole);
             }
 
-            var admin = new User { UserName = "admin@esw.pt", Email="admin@esw.pt" };
+            var financeiroRole = new IdentityRole("Gestor Financeiro");
+            if (!await roleManager.RoleExistsAsync(financeiroRole.Name))
+            {
+                await roleManager.CreateAsync(financeiroRole);
+            }
+
+            var admin = new User { UserName = "admin@esw.pt", Email = "admin@esw.pt" };
             var result = await userManager.CreateAsync(admin, "Abc123!");
 
             await userManager.AddToRoleAsync(admin, adminRole.Name);

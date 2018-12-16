@@ -1,0 +1,163 @@
+﻿@model IEnumerable<ProjetoESW.Models.Stock.Item>
+
+@{
+    ViewData["Title"] = "Items";
+    if (ViewData["layout"]=="")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="card">
+    <div class="header">
+        <h2>Items</h2>
+    </div>
+    <div class="body">
+        <table id="items" class="table table-striped table-hover dataTable js-exportable">
+            <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Descricao)
+                </th>
+                <th>
+                    Unidades em Stock
+                </th>
+                <th>Movimentos</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ItemType.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Descricao) 
+                        (@Html.DisplayFor(modelItem => item.Quantidade) Kg)
+                    </td>
+                    <td>
+                        @((item.Movements.Sum(x => x.Quantity)).ToString())
+                        (@string.Format("{0:0,0.00}", (item.Movements.Sum(x => x.Quantity) * item.Quantidade)).TrimStart('0') Kg)
+                    </td>
+                    <td>
+                        <a onclick="addMovement(@item.ID);" style="cursor: pointer;"><i class="fa fa-plus"></i></a>&nbsp;
+                        <a onclick="removeMovement(@item.ID);" style="cursor: pointer;"><i class="fa fa-minus"></i></a>&nbsp;
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-eye"></i></a>
+                        @if (!item.HaveHistory())
+                        {
+                            <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                        }
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        
+        <a asp-action="Create" class="btn btn-primary btn-export">
+            <i class="fa fa-plus"></i> Adicionar
+        </a>
+        
+        
+    </div>
+</div>
+
+    <script>
+        function erase(id) {
+            swal({
+                title: "Confirmar?",
+                text: "Tem a certeza que pretende eliminsar este Tipo de Item?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: '#5e3023',
+                cancelButtonColor: '#cf5c36',
+                confirmButtonText: 'Sim, Eliminar!',
+                cancelButtonText: 'Não, Cancelar!'
+            }).then((result) => {
+                if (result.value) {
+                    $.ajax({
+                        type: "get", 
+                        url: "/Items/Delete/" + id,
+                        ajaxasync: true,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    swal("Cancelado", "Tipo de Item não vai ser eliminado", "error");
+                }
+            });
+        }
+
+        function addMovement(id) {
+            swal({
+                text: 'Pretende dar entrada de que quantidade?',
+                content: "input",
+                input: 'number',
+                inputAttributes: {
+                    min: 0,
+                    max: 100,
+                    step: 1
+                }
+            }).then(function (result) {
+                $.ajax({
+                    type: "post", 
+                    url: "/Movements/MyCreate?itemID=" + id + "&quantity=" + result.value,
+                    ajaxasync: true,
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            })
+        }
+        function removeMovement(id) {
+            swal({
+                text: 'Pretende dar saída de que quantidade?',
+                content: "input",
+                input: 'number',
+                inputAttributes: {
+                    min: 0,
+                    max: 100,
+                    step: 1
+                }
+            }).then(function (result) {
+                $.ajax({
+                    type: "post", 
+                    url: "/Movements/MyCreate?itemID=" + id + "&quantity=-" + result.value,
+                    ajaxasync: true,
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            })
+        }
+    </script>
+
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+
+    <script>
+        //Exportable table
+        var table = $('#items').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+
+        table.columns.adjust().draw();
+    </script>

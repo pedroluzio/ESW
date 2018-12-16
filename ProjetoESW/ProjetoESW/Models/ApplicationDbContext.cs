@@ -5,10 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Models;
+using ProjetoESW.Models.Stock;
 
 namespace ProjetoESW.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<User, IdentityRole, string>
+    public class ApplicationDbContext
+        : IdentityDbContext<User, ApplicationRole, string, IdentityUserClaim<string>,
+            ApplicationUserRole, IdentityUserLogin<string>,
+            IdentityRoleClaim<string>, IdentityUserToken<string>>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -21,8 +25,32 @@ namespace ProjetoESW.Data
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Volunteer>()
                 .Property(e => e.Date_Regist).HasDefaultValueSql("getutcdate()");
-        }
 
-        public DbSet<ProjetoESW.Models.RoleViewModel> RoleViewModel { get; set; }
+            modelBuilder.Entity<ApplicationUserRole>(userRole =>
+            {
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
+        }
+        
+
+        public DbSet<ProjetoESW.Models.Stock.ItemType> ItemType { get; set; }
+
+        public DbSet<ProjetoESW.Models.Stock.Item> Item { get; set; }
+
+        public DbSet<ProjetoESW.Models.Stock.Movements> Movements { get; set; }
+
+        public DbSet<ProjetoESW.Models.Accounting> Accounting { get; set; }
+
+        public DbSet<ProjetoESW.Models.AccountMovements> AccountMovements { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using ProjetoESW.Data;
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181127115937_toAzure")]
-    partial class toAzure
+    [Migration("20181211134811_item change")]
+    partial class itemchange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -143,6 +143,40 @@ namespace ProjetoESW.Migrations
                     b.ToTable("RoleViewModel");
                 });
 
+            modelBuilder.Entity("ProjetoESW.Models.Stock.Item", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Descricao");
+
+                    b.Property<int>("ItemTypeID");
+
+                    b.Property<double>("Quantidade");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ItemTypeID");
+
+                    b.ToTable("Item");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Stock.ItemType", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description");
+
+                    b.Property<decimal>("SafetyLimit");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("ItemType");
+                });
+
             modelBuilder.Entity("ProjetoESW.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -257,6 +291,14 @@ namespace ProjetoESW.Migrations
                     b.HasOne("ProjetoESW.Models.User")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Stock.Item", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Stock.ItemType", "ItemType")
+                        .WithMany("Items")
+                        .HasForeignKey("ItemTypeID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

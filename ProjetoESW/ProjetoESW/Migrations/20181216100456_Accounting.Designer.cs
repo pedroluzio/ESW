@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProjetoESW.Data;
 
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20181216100456_Accounting")]
+    partial class Accounting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,9 +29,6 @@ namespace ProjetoESW.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.Property<string>("Name")
                         .HasMaxLength(256);
 
@@ -44,8 +43,6 @@ namespace ProjetoESW.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -112,16 +109,11 @@ namespace ProjetoESW.Migrations
 
                     b.Property<string>("RoleId");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired();
-
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUserRole<string>");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -162,13 +154,23 @@ namespace ProjetoESW.Migrations
 
                     b.Property<decimal>("Ammount");
 
-                    b.Property<string>("Description");
-
                     b.HasKey("AccountMovementsID");
 
                     b.HasIndex("AccountingID");
 
                     b.ToTable("AccountMovements");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.RoleViewModel", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoleViewModel");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.Stock.Item", b =>
@@ -296,33 +298,6 @@ namespace ProjetoESW.Migrations
                     b.ToTable("Volunteer");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.ApplicationRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-
-                    b.ToTable("ApplicationRole");
-
-                    b.HasDiscriminator().HasValue("ApplicationRole");
-                });
-
-            modelBuilder.Entity("ProjetoESW.Models.ApplicationUserRole", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUserRole<string>");
-
-                    b.Property<string>("RoleId1");
-
-                    b.Property<string>("UserId1");
-
-                    b.HasIndex("RoleId1");
-
-                    b.HasIndex("UserId1");
-
-                    b.ToTable("ApplicationUserRole");
-
-                    b.HasDiscriminator().HasValue("ApplicationUserRole");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -390,17 +365,6 @@ namespace ProjetoESW.Migrations
                         .WithMany("Movements")
                         .HasForeignKey("ItemID")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("ProjetoESW.Models.ApplicationUserRole", b =>
-                {
-                    b.HasOne("ProjetoESW.Models.ApplicationRole", "Role")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("RoleId1");
-
-                    b.HasOne("ProjetoESW.Models.User", "User")
-                        .WithMany("UserRoles")
-                        .HasForeignKey("UserId1");
                 });
 #pragma warning restore 612, 618
         }

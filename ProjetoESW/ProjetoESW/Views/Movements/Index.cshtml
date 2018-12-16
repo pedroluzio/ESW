@@ -1,0 +1,104 @@
+﻿@model IEnumerable<ProjetoESW.Models.Stock.Movements>
+
+@{
+    ViewData["Title"] = "Index";
+    if (ViewData["layout"]=="")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="card">
+    <div class="header">
+        <h3>Movimentos</h3>
+    </div>
+    <div class="body">
+        <table class="table" id="movements">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Moment)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Quantity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Item)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Moment)
+                        </td>
+                        <td>
+                            @(item.Quantity < 0 ? "Saída" : "Entrada")
+                        </td>
+                        <td>
+                            @(Math.Abs(item.Quantity))
+                        </td>
+                        <td>
+                            <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+
+<script>
+    function erase(id) {
+        swal({
+            title: "Confirmar?",
+            text: "Tem a certeza que pretende eliminar este movimento?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: '#5e3023',
+            cancelButtonColor: '#cf5c36',
+            confirmButtonText: 'Sim, Eliminar!',
+            cancelButtonText: 'Não, Cancelar!'
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    type: "get", 
+                    url: "/Movements/Delete/" + id,
+                    ajaxasync: true,
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            } else {
+                swal("Cancelado", "Movimento não vai ser eliminado", "error");
+            }
+        });
+    }
+</script>
+<script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+<script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+<script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+
+<script>
+    //Exportable table
+    var table = $('#movements').DataTable({
+        dom: 'Bfrtip',
+        responsive: true,
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+
+    table.columns.adjust().draw();
+</script>

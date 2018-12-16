@@ -1,0 +1,127 @@
+﻿@model IEnumerable<ProjetoESW.Models.Stock.ItemType>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="header">
+        <h2>Tipos de Items</h2>
+    </div>
+    <div class="body">
+        <table class="table" id="tipoItems">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SafetyLimit)
+                    </th>
+                    <th>
+                        Capacidade Atual
+                    </th>
+                    <th>
+                        Estado
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SafetyLimit) Kg
+                        </td>
+                        <td>
+                            @((string.Format("{0:0,0.00}", item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade))).TrimStart('0')) Kg
+                        </td>
+                        <td>
+                            @if (item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade) < item.SafetyLimit)
+                            {
+                                <span class="alert alert-danger" style="padding: 0px;">Abaixo do Limite</span>
+                            }
+                            else if (item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade) < item.SafetyLimit * 2)
+                            {
+                                <span class="alert alert-warning" style="padding: 0px;">Próximo do Limite</span>
+                            }
+                            else
+                            {
+                                <span class="alert alert-success" style="padding: 0px;">Bom Stock</span>
+                            }
+
+                        </td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-eye"></i></a>
+                            @if (!item.HaveHistory())
+                            {
+                                <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        function erase(id) {
+            swal({
+                title: "Confirmar?",
+                text: "Tem a certeza que pretende eliminsar este Tipo de Item?",
+                type: "warning",
+                buttons: [
+                    'Não, Cancelar',
+                    'Sim, Eliminar'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: "get", 
+                        url: "ItemTypes/Delete/" + id,
+                        data: { id: id },
+                        ajaxasync: true,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    swal("Cancelado", "Tipo de Item não vai ser eliminado", "error");
+                }
+            });
+        }
+    </script>
+
+
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+
+    <script>
+        //Exportable table
+        var table = $('#tipoItems').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+
+        table.columns.adjust().draw();
+    </script>
+}

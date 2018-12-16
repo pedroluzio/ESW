@@ -1,0 +1,83 @@
+﻿@using ProjetoESW.Models.Stock
+@model ProjetoESW.Models.Stock.Item
+
+@{
+    ViewData["Title"] = "Details";
+    if (ViewData["layout"]=="")
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<div class="card">
+    <div class="header">
+        <h2>@Html.DisplayFor(model => model.ItemType.Description) - @Html.DisplayFor(model => model.Descricao)</h2>
+    </div>
+    <div class="body">
+        <div class="row clearfix">
+            <div class="col-md-4">
+                <span><b>Capacidade Unitária:</b> @Html.DisplayFor(model => model.Quantidade) Kg</span>
+            </div>
+            <div class="col-md-4">
+                <span><b>Quantidade Total:</b> @this.Model.Movements.Sum(x => x.Quantity).ToString()</span>
+            </div>
+            <div class="col-md-4">
+                <span><b>Capacidade Total:</b> @string.Format("{0:0,0.00}", (this.Model.Movements.Sum(x => x.Quantity) * this.Model.Quantidade)).TrimStart('0') Kg</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--div class="card">
+    <div class="header">
+        <h3>Movimentos</h3>
+    </div>
+    <div class="body">
+        <table class="table" id="movements">
+            <thead>
+                <tr>
+                    <th>
+                        Momento
+                    </th>
+                    <th>
+                        Tipo
+                    </th>
+                    <th>
+                        Quantidade
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Movements)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Moment)
+                        </td>
+                        <td>
+                            @(item.Quantity < 0 ? "Saída" : "Entrada")
+                        </td>
+                        <td>
+                            @(Math.Abs(item.Quantity))
+                        </td>
+                        <td>
+                            <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div-->
+
+@Html.Partial("../Movements/index", Model.Movements, new ViewDataDictionary(this.ViewData) {{"layout", "none" }})
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+
+
+

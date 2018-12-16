@@ -1,0 +1,98 @@
+﻿@model ProjetoESW.Models.Stock.Item
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+    <div class="header">
+        <h2>Criar novo Item</h2>
+    </div>
+    <div class="body" id="myDiv">
+        <form id="myForm" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ItemTypeID" class="control-label"></label>
+                <select asp-for="ItemTypeID" class="form-control" asp-items="ViewBag.ItemTypeID"></select>
+            </div>
+            <div>
+                <a style="cursor: pointer;" onclick="func()"><span>Tipo de item não encontrado?<br/> Criar um novo.</span></a>
+            </div>
+            <hr />
+            <div class="row clearfix">
+                <div class="form-group col-md-6">
+                    <label asp-for="Descricao" class="control-label"></label>
+                    <input asp-for="Descricao" class="form-control" />
+                    <span asp-validation-for="Descricao" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-6">
+                    <label asp-for="Quantidade" class="control-label"></label>
+                    <input asp-for="Quantidade" class="form-control" />
+                    <span asp-validation-for="Quantidade" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <span onclick="document.getElementById('submeter').click();" style="cursor: pointer;" class="btn btn-primary btn-export">
+                    <i class="fa fa-save"></i> Guardar
+                </span>
+                <input type="submit" id="submeter" style="display:none" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+
+
+
+    <script>
+
+
+        function func() {
+
+            swal.queue([
+                // Step 0
+                {
+                    text: 'Descrição do Tipo de Item',
+                    content: "input",
+                    input: 'text'
+                },
+                // Step 1
+                {
+                    text: 'Qual o Limite de Segurança?',
+                    content: "input",
+                    input: 'number',
+                    inputAttributes: {
+                        min: 0,
+                        max: 100,
+                        step: 0.01
+                    }
+                }
+            ]).then(function (result) {
+                if (result.value[1]>0) {
+                    $.ajax({
+                        type: "post", 
+                        url: "../ItemTypes/MyCreate?Description=" + result.value[0] + "&SafetyLimit=" + result.value[1],
+                        ajaxasync: true,
+                        success:function() {
+                            location.reload();
+                        }
+                });
+        }
+        });
+
+        
+    }
+
+    </script>
+
+
+
+}

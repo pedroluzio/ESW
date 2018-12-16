@@ -7,9 +7,11 @@ using System.Linq;
 
 namespace ProjetoESW.Controllers
 {
+
     public class HomeController : Controller
     {
-       
+
+        /// <summary>Indexes this instance.</summary>
         public IActionResult Index()
         {
             
@@ -19,8 +21,6 @@ namespace ProjetoESW.Controllers
             return Redirect("Identity/Account/Login");
 
         }
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

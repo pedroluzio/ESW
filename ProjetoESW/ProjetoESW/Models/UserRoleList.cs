@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace ProjetoESW.Models
 {
-    public class RoleViewModel
+    public class UserRoleList
     {
-        public string Id { get; set; }
-        public string Name { get; set; }
+        public User user { get; set; }
+        public IEnumerable<ApplicationRole> roles { get; set; }
     }
 }

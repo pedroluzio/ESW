@@ -29,7 +29,7 @@
                         </a>
                     </li>
 
-                    @if (User.IsInRole("Administrator"))
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de RH"))
                     {
                         <li>
                             <a class="menu-toggle waves-effect waves-block">
@@ -53,7 +53,52 @@
                         </li>
                     }
 
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
+                    {
+                        <li>
+                            <a class="menu-toggle waves-effect waves-block">
+                                <i class="material-icons">shopping_cart</i>
+                                <span>Stocks</span>
+                            </a>
+                            <ul class="ml-menu">
+                                <li class=" ">
+                                    <a asp-area="" asp-controller="ItemTypes" asp-action="Index">
+                                        <i class="material-icons">list</i>
+                                        <span>Tipo de Items</span>
+                                    </a>
+                                </li>
+                                <li class=" ">
+                                    <a asp-area="" asp-controller="Items" asp-action="Index">
+                                        <i class="material-icons">local_offer</i>
+                                        <span>Items</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
                     
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
+                    {
+                        <li class=" ">
+                            <a asp-area="" asp-controller="Accountings" asp-action="Index">
+                                <i class="material-icons">euro_symbol</i>
+                                <span>Área Financeira</span>
+                            </a>
+                        </li>
+                    }
+
+
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <li class=" ">
+                            <a asp-area="" asp-controller="User" asp-action="Index">
+                                <i class="material-icons">verified_user</i>
+                                <span>Utilizadores</span>
+                            </a>
+                        </li>
+                    }
+
+
                     <hr />
                     <li>
                         <a class="menu-toggle waves-effect waves-block">

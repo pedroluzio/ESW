@@ -1684,7 +1684,7 @@
   font-size: 11px; }
 
 .font-12 {
-  font-size: 12px; }
+  font-size: 14px; }
 
 .font-13 {
   font-size: 13px; }
@@ -1839,7 +1839,7 @@
     font-size: 16px; }
     .block-header h2 small {
       display: block;
-      font-size: 12px;
+      font-size: 14px;
       margin-top: 8px;
       color: #888; }
       .block-header h2 small a {
@@ -2194,7 +2194,7 @@
 .demo-image-copyright {
   text-align: right;
   font-style: italic;
-  font-size: 12px;
+  font-size: 14px;
   color: #777;
   margin: 5px 0 10px 0; }
   .demo-image-copyright a {
@@ -2402,7 +2402,7 @@ a {
   animation: none !important; }
 
 section.content {
-  margin: 100px 15px 0 315px;
+  margin: 100px 15px 0 275px;
   -moz-transition: 0.5s;
   -o-transition: 0.5s;
   -webkit-transition: 0.5s;
@@ -2779,7 +2779,7 @@ section.content {
   width: 100%;
   text-align: center;
   color: #fff;
-  font-size: 12px;
+  font-size: 14px;
   transform: rotate(45deg);
   opacity: 0;
   position: absolute;
@@ -2990,7 +2990,7 @@ section.content {
     }
       .card .header h2 small {
         display: block;
-        font-size: 12px;
+        font-size: 14px;
         margin-top: 5px;
         color: #999;
         line-height: 15px; }
@@ -3398,28 +3398,24 @@ section.content {
 .alert-success {
   color: #2b982b !important; 
   background-color:white !important;
-  font-weight: bold;
   font-size:initial;
 }
 
 .alert-info {
     color: #00b0e4;
     background-color: white !important;
-    font-weight: bold;
     font-size: initial;
 }
 
 .alert-warning {
     color: #ff9600 !important;
     background-color: white !important;
-    font-weight: bold;
     font-size: initial;
 }
 
 .alert-danger {
     color: #fb483a !important;
     background-color: white !important;
-    font-weight: bold;
     font-size: initial;
 }
 
@@ -5003,11 +4999,11 @@ section.content {
       padding-left: 10px; }
   .input-group .help-info {
     float: right;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 5px;
     color: #999; }
   .input-group label.error {
-    font-size: 12px;
+    font-size: 14px;
     display: block;
     margin-top: 5px;
     font-weight: normal;
@@ -5027,7 +5023,7 @@ section.content {
   .input-group .form-line.focused .form-label {
     bottom: 25px;
     left: 0;
-    font-size: 12px; }
+    font-size: 14px; }
   .input-group .input-group-addon {
     border: none;
     background-color: transparent;
@@ -5051,7 +5047,7 @@ section.content {
   font-size: 14px; }
 
 .input-group.input-group-sm .form-control {
-  font-size: 12px; }
+  font-size: 14px; }
 
 .input-group.input-group-lg .input-group-addon i {
   font-size: 26px; }
@@ -5068,7 +5064,7 @@ section.content {
   margin-bottom: 0; }
 
 .form-group {
-  width: 100%;
+  /*width: 100%;*/
   margin-bottom: 25px; }
   .form-group .form-control {
     width: 100%;
@@ -5081,16 +5077,16 @@ section.content {
     padding-left: 0; }
   .form-group .help-info {
     float: right;
-    font-size: 12px;
+    font-size: 14px;
     margin-top: 5px;
     color: #999; }
   .form-group label.error {
-    font-size: 12px;
+    font-size: 14px;
     display: block;
     margin-top: 5px;
     font-weight: normal;
     color: #F44336; }
-  .form-group .form-line {
+  .form-group .form-control {
     width: 100%;
     position: relative;
     border-bottom: 1px solid #ddd; }
@@ -5137,10 +5133,10 @@ section.content {
   .form-group .form-line.focused .form-label {
     top: -10px;
     left: 0;
-    font-size: 12px; }
+    font-size: 14px; }
 
 .form-group-sm .form-label {
-  font-size: 12px; }
+  font-size: 14px; }
 
 .form-group-sm .form-line.focused .form-label {
   bottom: 20px;
@@ -5151,7 +5147,7 @@ section.content {
 
 .form-group-lg .form-line.focused .form-label {
   bottom: 35px;
-  font-size: 12px; }
+  font-size: 14px; }
 
 .form-control[disabled],
 .form-control[readonly],
@@ -7451,7 +7447,7 @@ fieldset[disabled] .form-control {
     text-align: center;
     border-top: 1px solid #eee;
     padding: 5px 0 5px 0;
-    font-size: 12px;
+    font-size: 14px;
     margin-bottom: -5px; }
     .dropdown-menu .footer a:hover {
       background-color: transparent; }
@@ -7501,7 +7497,7 @@ fieldset[disabled] .form-control {
   transition: all 0.5s;
   font-family: "Roboto";
   background: #fdfdfd;
-  width: 300px;
+  width: 250px;
   overflow: hidden;
   display: inline-block;
   height: calc(100vh - 70px);
@@ -7575,7 +7571,7 @@ fieldset[disabled] .form-control {
         -o-text-overflow: ellipsis;
         text-overflow: ellipsis;
         overflow: hidden;
-        font-size: 12px;
+        font-size: 14px;
         max-width: 200px;
         color: #fff; }
       .sidebar .user-info .info-container .user-helper-dropdown {
@@ -7599,7 +7595,7 @@ fieldset[disabled] .form-control {
         font-weight: bold; }
       .sidebar .menu .list .header {
         background: #eee;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 600;
         padding: 8px 16px; }
       .sidebar .menu .list i.material-icons {
@@ -7980,7 +7976,7 @@ fieldset[disabled] .form-control {
     -ms-box-shadow: none;
     box-shadow: none;
     border: none;
-    font-size: 12px;
+    font-size: 14px;
     border-bottom: 1px solid #ddd; }
     .dataTables_wrapper input[type="search"]:focus, .dataTables_wrapper input[type="search"]:active {
       border-bottom: 2px solid #1f91f3; }
