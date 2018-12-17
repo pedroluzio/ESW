@@ -49,6 +49,7 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -99,5 +100,6 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
     }
 }

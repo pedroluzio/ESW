@@ -9,5 +9,7 @@ namespace ProjetoESW.Models
     public class ApplicationRole : IdentityRole
     {
         public ICollection<ApplicationUserRole> UserRoles { get; set; }
+
+        public ApplicationRole(string name) : base(name) { }
     }
 }

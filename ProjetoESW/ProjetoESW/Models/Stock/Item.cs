@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ProjetoESW.Models.Stock
 {
@@ -26,9 +28,50 @@ namespace ProjetoESW.Models.Stock
         public List<Movements> Movements { get; set; }
 
 
+        /// <summary>Haves the history.</summary>
+        /// <returns>True if have history</returns>
         public bool HaveHistory()
         {
             return Movements.Count != 0;
+        }
+
+        /// <summary>Gets the days history.</summary>
+        /// <returns>Return the days of movements to use in chart</returns>
+        public string getDaysHistory()
+        {
+            Dictionary<DateTime, int> myMovementes = Movements
+                .OrderBy(x => x.Moment)
+                .GroupBy(x => x.Moment.Date)
+                .ToDictionary(x => x.Key, g => g.Count());
+
+            string str = "";
+            foreach (var day in myMovementes.Keys)
+            {
+                str += "'" + day.ToString("dd/MM/yyyy") + "',";
+            }
+
+            str = str.Substring(0, str.Length - 1);
+            return str;
+        }
+
+
+        /// <summary>Gets the value history.</summary>
+        /// <returns>Return the value of total movements to use in chart</returns>
+        public string getValueHistory()
+        {
+            Dictionary<DateTime, int> myMovementes = Movements
+                .OrderBy(x => x.Moment)
+                .GroupBy(x => x.Moment.Date)
+                .ToDictionary(x => x.Key, g => g.Sum(x=>x.Quantity));
+
+            string str = "";
+            foreach (var day in myMovementes.Values)
+            {
+                str += day + ",";
+            }
+
+            str = str.Substring(0, str.Length - 1);
+            return str;
         }
     }
 }

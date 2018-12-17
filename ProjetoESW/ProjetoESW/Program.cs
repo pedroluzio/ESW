@@ -28,7 +28,7 @@ namespace ProjetoESW
 
                     // Obter os gestores de utilizadores e de papeis
                     var userManager = services.GetRequiredService<UserManager<User>>();
-                    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+                    var roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
 
                     DBInitializer.Initialize(context, userManager, roleManager).Wait();
                 }

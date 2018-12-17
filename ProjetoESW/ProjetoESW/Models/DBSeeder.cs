@@ -16,7 +16,7 @@ namespace ProjetoESW.Models
 
         private static void seedAccounting(ApplicationDbContext context)
         {
-            if (context.Accounting.Count() == 0)
+            if (context.Accounting.Count()<2)
             {
                 context.Database.EnsureCreated();
                 context.Accounting.Add(

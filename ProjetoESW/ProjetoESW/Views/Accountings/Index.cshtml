@@ -36,7 +36,7 @@
                             @Html.DisplayFor(modelItem => item.Movements.Count)
                         </td>
                         <td>
-                            @(String.Format("{0:C}", item.Balance()))
+                            @($"{item.Balance():C}")
                         </td>
                         <td>
                         <a asp-action="Details" asp-route-id="@item.AccountingID"><li class="fa fa-eye"></li></a> 

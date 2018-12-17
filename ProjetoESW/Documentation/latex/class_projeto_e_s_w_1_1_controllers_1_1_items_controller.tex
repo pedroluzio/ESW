@@ -1,0 +1,70 @@
+\hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller}{}\section{Projeto\+E\+S\+W.\+Controllers.\+Items\+Controller Class Reference}
+\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller}\index{Projeto\+E\+S\+W.\+Controllers.\+Items\+Controller@{Projeto\+E\+S\+W.\+Controllers.\+Items\+Controller}}
+Inheritance diagram for Projeto\+E\+S\+W.\+Controllers.\+Items\+Controller\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_projeto_e_s_w_1_1_controllers_1_1_items_controller}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a9b48b3368758a4a943f6c8a5d6d73da9}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a9b48b3368758a4a943f6c8a5d6d73da9}} 
+{\bfseries Items\+Controller} (\mbox{\hyperlink{class_projeto_e_s_w_1_1_data_1_1_application_db_context}{Application\+Db\+Context}} context)
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_aa609a37037f6c55ef613bd7460be1948}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_aa609a37037f6c55ef613bd7460be1948}} 
+async Task$<$ I\+Action\+Result $>$ {\bfseries Index} ()
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a7d492d6ee1a5f560d6ed5e72b086baa9}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a7d492d6ee1a5f560d6ed5e72b086baa9}} 
+async Task$<$ I\+Action\+Result $>$ {\bfseries Details} (int? id)
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_ac1e7e3b7ce642a43efe2e50914d8fcbb}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_ac1e7e3b7ce642a43efe2e50914d8fcbb}} 
+I\+Action\+Result {\bfseries Create} ()
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a2f28c4f5906248c24a1a4de15fd15cf6}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a2f28c4f5906248c24a1a4de15fd15cf6}} 
+async Task$<$ I\+Action\+Result $>$ {\bfseries Create} (\mbox{[}Bind(\char`\"{}ID,Item\+Type\+ID,Descricao,Quantidade\char`\"{})\mbox{]} Item item)
+\item 
+async Task$<$ I\+Action\+Result $>$ \mbox{\hyperlink{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_af64262de25e9bef58abb43e49bf55509}{My\+Create}} (int Item\+Type\+ID, string Description, decimal Quantity)
+\begin{DoxyCompactList}\small\item\em My own create.\end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_ad36485dc01d79498906d888a755c9405}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_ad36485dc01d79498906d888a755c9405}} 
+async Task$<$ I\+Action\+Result $>$ {\bfseries Delete} (int id)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a164d332c078dce64de127a1b8fd30384}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a164d332c078dce64de127a1b8fd30384}} 
+bool {\bfseries Item\+Exists} (int id)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a6039fb5bb6b4bb57756ffca4d76a89e0}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_a6039fb5bb6b4bb57756ffca4d76a89e0}} 
+readonly \mbox{\hyperlink{class_projeto_e_s_w_1_1_data_1_1_application_db_context}{Application\+Db\+Context}} {\bfseries \+\_\+context}
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_af64262de25e9bef58abb43e49bf55509}\label{class_projeto_e_s_w_1_1_controllers_1_1_items_controller_af64262de25e9bef58abb43e49bf55509}} 
+\index{Projeto\+E\+S\+W\+::\+Controllers\+::\+Items\+Controller@{Projeto\+E\+S\+W\+::\+Controllers\+::\+Items\+Controller}!My\+Create@{My\+Create}}
+\index{My\+Create@{My\+Create}!Projeto\+E\+S\+W\+::\+Controllers\+::\+Items\+Controller@{Projeto\+E\+S\+W\+::\+Controllers\+::\+Items\+Controller}}
+\subsubsection{\texorpdfstring{My\+Create()}{MyCreate()}}
+{\footnotesize\ttfamily async Task$<$I\+Action\+Result$>$ Projeto\+E\+S\+W.\+Controllers.\+Items\+Controller.\+My\+Create (\begin{DoxyParamCaption}\item[{int}]{Item\+Type\+ID,  }\item[{string}]{Description,  }\item[{decimal}]{Quantity }\end{DoxyParamCaption})}
+
+
+
+My own create.
+
+
+\begin{DoxyParams}{Parameters}
+{\em Item\+Type\+ID} & The item type identifier.\\
+\hline
+{\em Description} & The description.\\
+\hline
+{\em Quantity} & The quantity.\\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/fpp\+\_\+c/source/repos/\+Projeto\+E\+S\+W/\+Projeto\+E\+S\+W/\+Projeto\+E\+S\+W/\+Controllers/Items\+Controller.\+cs\end{DoxyCompactItemize}

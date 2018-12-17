@@ -39,14 +39,14 @@
                             @Html.DisplayFor(modelItem => item.SafetyLimit) Kg
                         </td>
                         <td>
-                            @((string.Format("{0:0,0.00}", item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade))).TrimStart('0')) Kg
+                            @(($"{item.QuantityAvailable():0,0.00}").TrimStart('0')) Kg
                         </td>
                         <td>
-                            @if (item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade) < item.SafetyLimit)
+                            @if (item.StockAvailable()=="Abaixo do Limite")
                             {
                                 <span class="alert alert-danger" style="padding: 0px;">Abaixo do Limite</span>
                             }
-                            else if (item.Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade) < item.SafetyLimit * 2)
+                            else if (item.StockAvailable() == "Próximo do Limite")
                             {
                                 <span class="alert alert-warning" style="padding: 0px;">Próximo do Limite</span>
                             }

@@ -3,7 +3,7 @@
 
 @{
     ViewData["Title"] = "Details";
-    if (ViewData["layout"]=="")
+    if (ViewData["layout"] == "")
     {
         Layout = "~/Views/Shared/_Layout.cshtml";
     }
@@ -19,65 +19,65 @@
                 <span><b>Capacidade Unitária:</b> @Html.DisplayFor(model => model.Quantidade) Kg</span>
             </div>
             <div class="col-md-4">
-                <span><b>Quantidade Total:</b> @this.Model.Movements.Sum(x => x.Quantity).ToString()</span>
+                <span><b>Quantidade Total:</b> @Model.Movements.Sum(x => x.Quantity).ToString()</span>
             </div>
             <div class="col-md-4">
-                <span><b>Capacidade Total:</b> @string.Format("{0:0,0.00}", (this.Model.Movements.Sum(x => x.Quantity) * this.Model.Quantidade)).TrimStart('0') Kg</span>
+                <span><b>Capacidade Total:</b> @($"{(Model.Movements.Sum(x => x.Quantity) * Model.Quantidade):0,0.00}".TrimStart('0')) Kg</span>
             </div>
         </div>
     </div>
 </div>
 
-<!--div class="card">
+
+@Html.Partial("../Movements/index", Model.Movements, new ViewDataDictionary(ViewData) { { "layout", "none" } })
+
+<div class="card">
     <div class="header">
-        <h3>Movimentos</h3>
+        <h2>Histórico de Movimentos</h2>
     </div>
     <div class="body">
-        <table class="table" id="movements">
-            <thead>
-                <tr>
-                    <th>
-                        Momento
-                    </th>
-                    <th>
-                        Tipo
-                    </th>
-                    <th>
-                        Quantidade
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model.Movements)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Moment)
-                        </td>
-                        <td>
-                            @(item.Quantity < 0 ? "Saída" : "Entrada")
-                        </td>
-                        <td>
-                            @(Math.Abs(item.Quantity))
-                        </td>
-                        <td>
-                            <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+        <canvas id="lineChart"></canvas>
     </div>
-</div-->
-
-@Html.Partial("../Movements/index", Model.Movements, new ViewDataDictionary(this.ViewData) {{"layout", "none" }})
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
 </div>
 
 
+
+
+
+<!-- JQuery -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/js/mdb.min.js"></script>
+
+<script>
+    //line
+    var ctxL = document.getElementById("lineChart").getContext('2d');
+    var myLineChart = new Chart(ctxL, {
+        type: 'line',
+        data: {
+            labels: [@Html.Raw(Model.getDaysHistory())],
+            datasets: [{
+                    label: "Movimentos Diários",
+                data: [@Model.getValueHistory()],
+                backgroundColor: [
+                    '#cf5c36',
+                ],
+                borderColor: [
+                    '#562c20',
+                ],
+                borderWidth: 2
+            }
+            ]
+        },
+        options: {
+            responsive: true
+        }
+    });
+
+</script>
 
 

@@ -11,37 +11,37 @@ namespace ProjetoESW.Models
     public class DBInitializer
     {
         public static async Task Initialize(ApplicationDbContext context, UserManager<User> userManager,
-            RoleManager<IdentityRole> roleManager)
+            RoleManager<ApplicationRole> roleManager)
         {
             context.Database.EnsureCreated();
 
-            var adminRole = new IdentityRole("Administrator");
+            var adminRole = new ApplicationRole("Administrator");
             if (!await roleManager.RoleExistsAsync(adminRole.Name))
             {
                 await roleManager.CreateAsync(adminRole);
             }
 
-            var stocksRole = new IdentityRole("Gestor de Stocks");
+            var stocksRole = new ApplicationRole("Gestor de Stocks");
             if (!await roleManager.RoleExistsAsync(stocksRole.Name))
             {
                 await roleManager.CreateAsync(stocksRole);
             }
 
 
-            var RHRole = new IdentityRole("Gestor de RH");
+            var RHRole = new ApplicationRole("Gestor de RH");
             if (!await roleManager.RoleExistsAsync(RHRole.Name))
             {
                 await roleManager.CreateAsync(RHRole);
             }
 
-            var financeiroRole = new IdentityRole("Gestor Financeiro");
+            var financeiroRole = new ApplicationRole("Gestor Financeiro");
             if (!await roleManager.RoleExistsAsync(financeiroRole.Name))
             {
                 await roleManager.CreateAsync(financeiroRole);
             }
 
             var admin = new User { UserName = "admin@esw.pt", Email = "admin@esw.pt" };
-            var result = await userManager.CreateAsync(admin, "Abc123!");
+            await userManager.CreateAsync(admin, "Abc123!");
 
             await userManager.AddToRoleAsync(admin, adminRole.Name);
         }

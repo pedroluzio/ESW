@@ -52,7 +52,7 @@
                         }
                     </td>
                     <td>
-                        @(string.Format("{0:C}", Math.Abs(item.Ammount)))
+                        @($"{Math.Abs(item.Ammount):C}")
                     </td>
                     <td>
                         <a style="cursor: pointer;" onclick="erase(@item.AccountMovementsID)"><li class="fa fa-trash"></li></a> 

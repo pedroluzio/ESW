@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <a onclick="addRole('@this.Model.Id');" class="btn btn-primary btn-export">
+                <a onclick="addRole('@Model.Id');" class="btn btn-primary btn-export">
                     <i class="fa fa-plus"></i> Adicionar
                 </a>
             </div>
@@ -53,7 +53,7 @@
                             @Html.DisplayFor(modelItem => item.Role.Name)
                         </td>
                         <td>
-                            <a onclick="removeRole('@this.Model.Id', '@item.RoleId');" class="btn btn-primary btn-export">
+                            <a onclick="removeRole('@Model.Id', '@item.RoleId');" class="btn btn-primary btn-export">
                                 <i class="fa fa-minus"></i> Remover
                             </a>
                         </td>
@@ -71,14 +71,16 @@
         swal({
             text: 'Tem a certeza que pretende adicionar este cargo?'
         }).then(function (result) {
-            $.ajax({
-                type: "post",
-                url: "/User/AddRole?UserID=" + id + "&RoleID=" + document.getElementById("role").value,
-                ajaxasync: true,
-                success: function () {
-                    location.reload();
+            if (result.confirm) {
+                $.ajax({
+                    type: "post",
+                    url: "/User/AddRole?UserID=" + id + "&RoleID=" + document.getElementById("role").value,
+                    ajaxasync: true,
+                    success: function () {
+                        location.reload();
+                    }
+                    });
                 }
-            });
         });
     }
 
@@ -86,6 +88,7 @@
         swal({
             text: 'Tem a certeza que pretende remover este cargo?'
         }).then(function (result) {
+            if (result.confirm) {
             $.ajax({
                 type: "post",
                 url: "/User/RemoveRole?UserID=" + user + "&RoleID=" + role,
@@ -93,7 +96,8 @@
                 success: function () {
                     location.reload();
                 }
-            });
+                });
+                }
         });
     }
 </script>

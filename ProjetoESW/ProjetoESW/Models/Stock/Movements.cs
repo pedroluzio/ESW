@@ -10,7 +10,6 @@ namespace ProjetoESW.Models.Stock
     {
         public int ID { get; set; }
 
-
         public int ItemID { get; set; }
 
         public DateTime Moment { get; set; }

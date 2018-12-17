@@ -22,10 +22,8 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
             _signInManager = signInManager;
             _logger = logger;
         }
+        
 
-        public void OnGet()
-        {
-        }
 
         public async Task<IActionResult> OnPost(string returnUrl = null)
         {
@@ -40,5 +38,6 @@ namespace ProjetoESW.Areas.Identity.Pages.Account
                 return Page();
             }
         }
+
     }
 }

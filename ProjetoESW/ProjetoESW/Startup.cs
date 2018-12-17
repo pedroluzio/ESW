@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,7 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProjetoESW.Models;
+    using Microsoft.Extensions.Logging;
+    using ProjetoESW.Models;
 
 namespace ProjetoESW
 {
@@ -83,15 +85,19 @@ namespace ProjetoESW
 
             DBSeeder.SeedDB(context);
 
+
+            
+
+               
+    
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-
+            
         }
-
-        
     }
 }
