@@ -41,8 +41,8 @@ namespace ProjetoESW.Controllers
             return View(specie);
         }
         
-        // <summary>My own create.</summary>
-        // <param name="name">The Specie name.</param>
+        /// <summary>My own create.</summary>
+        /// <param name="name">The Specie name.</param>
         [HttpPost]
         public async Task<IActionResult> MyCreate(string name)
         {

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -41,16 +42,77 @@ namespace ProjetoESW.Models.Animals
 
         public List<Appointment> Appointments { get; set; }
 
-        //TODO: Método para dado uma idade aproximada calcular o ano de nascimento
+        public Animal(string name, DateTime birthdate, Gender gender, int breedID, Breed breed, int colorID, Color color, DateTime ovhDate, int colonyID, Colony colony)
+        {
+            Name = name;
+            Birthdate = birthdate;
+            Gender = gender;
+            BreedID = breedID;
+            Breed = breed;
+            ColorID = colorID;
+            Color = color;
+            OVHDate = ovhDate;
+            ColonyID = colonyID;
+            Colony = colony;
+            YearOfBirth = 0;
+        }
 
-        //TODO: construtor que recebe a data de nascimento e outro que recebe a idade
+        public Animal(string name, int yearOfBirth, Gender gender, int breedID, Breed breed, int colorID, Color color, DateTime ovhDate, int colonyID, Colony colony)
+        {
+            Name = name;
+            YearOfBirth = yearOfBirth;
+            Gender = gender;
+            BreedID = breedID;
+            Breed = breed;
+            ColorID = colorID;
+            Color = color;
+            OVHDate = ovhDate;
+            ColonyID = colonyID;
+            Colony = colony;
+            YearOfBirth = 0;
+        }
 
-        //TODO: Ver se tem ovh ou não
+        /// <summary>
+        /// This method calculates the year of birth by the given age.
+        /// </summary>
+        /// <param name="idade">The age to calculate year.</param>
+        /// <returns>The estimated year of birth.</returns>
+        public int CalcularAno(int idade)
+        {
+            return DateTime.Now.Year - idade;
+        } 
 
-        //TODO: ver data de ovh
+        /// <summary>
+        /// This methods checks if an animal has OVH.
+        /// </summary>
+        /// <returns>True if the animal has an OVH, false if not.</returns>
+        public bool hasOVH()
+        {
+            return (OVHDate != null);
+        }
 
+        /// <summary>
+        /// This method returns the OVH date in dd/M/yyyy format.
+        /// </summary>
+        /// <returns>A string with the OVH date in dd/M/yyyy format</returns>
+        public string OVHDateString()
+        {
+            return OVHDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
+        }
 
-
+        /// <summary>
+        /// This method returns the note associated with the animal OVH.
+        /// </summary>
+        /// <returns>A string with the note associated with the animal OVH.</returns>
+        public string OVHNotes()
+        {
+            foreach(Appointment appointment in Appointments)
+            {
+                if (appointment.OVH && OVHDate.Equals(appointment.Date))
+                    return appointment.Note;
+            }
+            return "";
+        }
     }
 
     public enum Gender
