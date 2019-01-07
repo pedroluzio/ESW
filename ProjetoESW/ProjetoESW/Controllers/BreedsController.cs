@@ -48,7 +48,7 @@ namespace ProjetoESW.Controllers
         // GET: Breeds/Create
         public IActionResult Create()
         {
-            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "ID");
+            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "Name");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace ProjetoESW.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "ID", breed.SpecieID);
+            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "Name", breed.SpecieID);
             return View(breed);
         }
 
@@ -82,7 +82,7 @@ namespace ProjetoESW.Controllers
             {
                 return NotFound();
             }
-            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "ID", breed.SpecieID);
+            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "Name", breed.SpecieID);
             return View(breed);
         }
 
@@ -118,7 +118,7 @@ namespace ProjetoESW.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "ID", breed.SpecieID);
+            ViewData["SpecieID"] = new SelectList(_context.Specie, "ID", "Name", breed.SpecieID);
             return View(breed);
         }
 

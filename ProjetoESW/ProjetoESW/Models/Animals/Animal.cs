@@ -31,7 +31,7 @@ namespace ProjetoESW.Models.Animals
         public int ColorID { get; set; }
         [Display(Name = "Cor")]
         public Color Color { get; set; }
-
+   
         [Display(Name = "Data da OVH")]
         public DateTime OVHDate { get; set; }
 
@@ -40,6 +40,16 @@ namespace ProjetoESW.Models.Animals
         public Colony Colony { get; set; }
 
         public List<Appointment> Appointments { get; set; }
+
+        //TODO: Método para dado uma idade aproximada calcular o ano de nascimento
+
+        //TODO: construtor que recebe a data de nascimento e outro que recebe a idade
+
+        //TODO: Ver se tem ovh ou não
+
+        //TODO: ver data de ovh
+
+
 
     }
 
