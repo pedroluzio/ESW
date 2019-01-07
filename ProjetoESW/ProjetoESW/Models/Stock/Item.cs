@@ -32,6 +32,8 @@ namespace ProjetoESW.Models.Stock
         /// <returns>True if have history</returns>
         public bool HaveHistory()
         {
+            if (Movements is null)
+                return false;
             return Movements.Count != 0;
         }
 
@@ -39,6 +41,8 @@ namespace ProjetoESW.Models.Stock
         /// <returns>Return the days of movements to use in chart</returns>
         public string getDaysHistory()
         {
+            if (Movements is null)
+                return "";
             Dictionary<DateTime, int> myMovementes = Movements
                 .OrderBy(x => x.Moment)
                 .GroupBy(x => x.Moment.Date)
@@ -59,6 +63,8 @@ namespace ProjetoESW.Models.Stock
         /// <returns>Return the value of total movements to use in chart</returns>
         public string getValueHistory()
         {
+            if (Movements is null)
+                return "";
             Dictionary<DateTime, int> myMovementes = Movements
                 .OrderBy(x => x.Moment)
                 .GroupBy(x => x.Moment.Date)
@@ -72,6 +78,13 @@ namespace ProjetoESW.Models.Stock
 
             str = str.Substring(0, str.Length - 1);
             return str;
+        }
+
+        public decimal QuantityAvailable()
+        {
+            if (Movements is null)
+                return 0;
+            return Movements.Sum(x => x.Quantity) * Quantidade;
         }
     }
 }

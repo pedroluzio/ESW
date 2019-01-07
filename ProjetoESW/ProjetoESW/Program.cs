@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProjetoESW.Data;
 using ProjetoESW.Models;
+using ServiceProvider = Microsoft.Extensions.DependencyInjection.ServiceProvider;
 
 namespace ProjetoESW
 {
@@ -39,6 +40,7 @@ namespace ProjetoESW
                 }
             }
 
+            
             host.Run();
         }
 

@@ -11,32 +11,36 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <div class="row">
-        <div class="col-md-4">
-            <div class="card col-md-12">
-                <div class="header">
-                    <h2>Estado dos Stocks</h2>
-                </div>
-                <div class="body">
-                    <div class="row clearfix">
-                        @foreach (var item in Model.LowStock())
-                        {
-                            <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-danger" style="padding: 0px;">@item.Description</a>
-                        }
-                        @foreach (var item in Model.MediumStock())
-                        {
-                            <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-warning" style="padding: 0px;">@item.Description</a> 
-                        }
-                        @foreach (var item in Model.GoodStock())
-                        {
-                            <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-success" style="padding: 0px;">@item.Description</a>
-                        }
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-    </div>
+    
+    if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
+     {
+         <div class="row">
+             <div class="col-md-4">
+                 <div class="card col-md-12">
+                     <div class="header">
+                         <h2>Estado dos Stocks</h2>
+                     </div>
+                     <div class="body">
+                         <div class="row clearfix">
+                             @foreach (var item in Model.LowStock())
+                             {
+                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-danger" style="padding: 0px;">@item.Description</a>
+                             }
+                             @foreach (var item in Model.MediumStock())
+                             {
+                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-warning" style="padding: 0px;">@item.Description</a>
+                             }
+                             @foreach (var item in Model.GoodStock())
+                             {
+                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-success" style="padding: 0px;">@item.Description</a>
+                             }
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+         </div>
+     }
 }
 else
 {

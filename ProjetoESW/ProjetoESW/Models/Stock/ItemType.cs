@@ -31,6 +31,8 @@ namespace ProjetoESW.Models.Stock
         /// </returns>
         public bool HaveHistory()
         {
+            if (Items is null)
+                return false;
             return Items.Count != 0;
         }
 
@@ -38,6 +40,8 @@ namespace ProjetoESW.Models.Stock
         /// <returns>Return the Total Available Quantity in Kg</returns>
         public decimal QuantityAvailable()
         {
+            if (Items is null)
+                return 0;
             return Items.Sum(x => x.Movements.Sum(y => y.Quantity) * x.Quantidade);
         }
 
@@ -65,6 +69,9 @@ namespace ProjetoESW.Models.Stock
         /// <returns>Return the days of movements to use in chart</returns>
         public string getDaysHistory()
         {
+            if (Items is null)
+                return "";
+
             List<Movements> movements = new List<Movements>();
             foreach (var item in Items)
             {
@@ -96,6 +103,8 @@ namespace ProjetoESW.Models.Stock
         /// <returns>Return the number of movements to use in chart</returns>
         public string getValueHistory()
         {
+            if (Items is null)
+                return "";
             List<Movements> movements = new List<Movements>();
             foreach (var item in Items)
             {

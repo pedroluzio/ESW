@@ -42,7 +42,7 @@
                     </td>
                     <td>
                         @((item.Movements.Sum(x => x.Quantity)).ToString())
-                        (@($"{(item.Movements.Sum(x => x.Quantity) * item.Quantidade):0,0.00}".TrimStart('0')) Kg)
+                        (@($"{item.QuantityAvailable():0,0.00}".TrimStart('0')) Kg)
                     </td>
                     <td>
                         <a onclick="addMovement(@item.ID);" style="cursor: pointer;"><i class="fa fa-plus"></i></a>&nbsp;

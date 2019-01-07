@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +14,7 @@ using ProjetoESW.Models.Stock;
 
 namespace ProjetoESW.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class UserController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -50,7 +53,8 @@ namespace ProjetoESW.Controllers
         public async Task<IActionResult> AddRole(string UserID, string RoleID)
         {
             ApplicationUserRole item = new ApplicationUserRole() { RoleId = RoleID, UserId = UserID };
-            _context.Add(item);
+            _context.UserRoles.Add(item);
+            //_context.Add(item);
             await _context.SaveChangesAsync();
             return Accepted();
         }

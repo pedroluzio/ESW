@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Areas.Identity;
 using ProjetoESW.Data;
 
@@ -14,6 +15,8 @@ namespace ProjetoESW.Models
             RoleManager<ApplicationRole> roleManager)
         {
             context.Database.EnsureCreated();
+
+            //delete(context);
 
             var adminRole = new ApplicationRole("Administrator");
             if (!await roleManager.RoleExistsAsync(adminRole.Name))
@@ -44,6 +47,16 @@ namespace ProjetoESW.Models
             await userManager.CreateAsync(admin, "Abc123!");
 
             await userManager.AddToRoleAsync(admin, adminRole.Name);
+
+
+        }
+
+        private static void delete(ApplicationDbContext context)
+        {
+
+            context.Database.EnsureDeleted();
+            context.Database.Migrate();
+
         }
     }
 }

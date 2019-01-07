@@ -11,7 +11,7 @@ using ProjetoESW.Models;
 
 namespace ProjetoESW.Controllers
 {
-    [Authorize(Roles = "Administrator")]
+    [Authorize(Roles = "Administrator, Gestor de RH" )]
     public class VolunteersController : Controller
     {
         private readonly ApplicationDbContext _context;
