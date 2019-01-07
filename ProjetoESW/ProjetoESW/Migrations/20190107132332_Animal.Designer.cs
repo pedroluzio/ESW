@@ -10,8 +10,8 @@ using ProjetoESW.Data;
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181217130552_sprint")]
-    partial class sprint
+    [Migration("20190107132332_Animal")]
+    partial class Animal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,6 +124,76 @@ namespace ProjetoESW.Migrations
                     b.HasIndex("AccountingID");
 
                     b.ToTable("AccountMovements");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Birthdate");
+
+                    b.Property<int?>("BreedID");
+
+                    b.Property<int?>("ColorID");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("YearOfBirth");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BreedID");
+
+                    b.HasIndex("ColorID");
+
+                    b.ToTable("Animal");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("SpecieID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SpecieID");
+
+                    b.ToTable("Breed");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Color", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Color");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Specie", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Specie");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.ApplicationRole", b =>
@@ -326,6 +396,24 @@ namespace ProjetoESW.Migrations
                         .WithMany("Movements")
                         .HasForeignKey("AccountingID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Animals.Breed", "Breed")
+                        .WithMany("Animals")
+                        .HasForeignKey("BreedID");
+
+                    b.HasOne("ProjetoESW.Models.Animals.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorID");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Animals.Specie", "Specie")
+                        .WithMany("Breeds")
+                        .HasForeignKey("SpecieID");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.ApplicationUserRole", b =>

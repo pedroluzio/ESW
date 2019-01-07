@@ -17,6 +17,8 @@ namespace ProjetoESW.Models.Animals
 
         public bool HaveBreeds()
         {
+            if (Breeds is null)
+                return false;
             return Breeds.Any();
         }
     }

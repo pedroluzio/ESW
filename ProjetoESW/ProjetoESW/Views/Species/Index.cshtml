@@ -1,0 +1,98 @@
+﻿@model IEnumerable<ProjetoESW.Models.Animals.Specie>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <div class="header">
+        <h2>Listagem de Espécies</h2>
+    </div>
+    <div class="body">
+        <table class="table" id="especies">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-eye"></i></a>
+                        @if (!item.HaveBreeds())
+                        {
+                            <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                        }
+                    </td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        function erase(id) {
+            swal({
+                title: "Confirmar?",
+                text: "Tem a certeza que pretende eliminar esta espécie?",
+                type: "warning",
+                buttons: [
+                    'Não, Cancelar',
+                    'Sim, Eliminar'
+                ],
+                dangerMode: true,
+            }).then(function (isConfirm) {
+                if (isConfirm) {
+                    $.ajax({
+                        type: "post",
+                        url: "Species/Delete/" + id,
+                        data: { id: id },
+                        ajaxasync: true,
+                        success: function () {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    swal("Cancelado", "Espécie não vai ser eliminada", "error");
+                }
+            });
+        }
+    </script>
+
+
+    <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="~/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="~/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+
+    <script>
+        //Exportable table
+        var table = $('#especies').DataTable({
+            dom: 'Bfrtip',
+            responsive: true,
+            buttons: [
+                'copy', 'csv', 'excel', 'pdf', 'print'
+            ]
+        });
+
+        table.columns.adjust().draw();
+    </script>
+}

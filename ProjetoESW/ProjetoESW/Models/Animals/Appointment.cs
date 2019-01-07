@@ -1,10 +1,9 @@
-﻿using System;
+﻿using ProjetoESW.Models.Colonies;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using ProjetoESW.Models.Colony;
-
 namespace ProjetoESW.Models.Animals
 {
     public class Appointment
@@ -21,10 +20,10 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Animal")]
         public Animal Animal { get; set; }
 
-        public int OVHID { get; set; }
-        public OVH OVH { get; set; }
+        public bool OVH { get; set; }
 
         public int ColonyID { get; set; }
+        [Display(Name = "Colónia")]
         public Colony Colony { get; set; }
     }
 }
