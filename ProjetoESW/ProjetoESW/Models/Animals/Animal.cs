@@ -23,12 +23,15 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Sexo")]
         public Gender Gender { get; set; }
 
+        public int BreedID { get; set; }
         [Display(Name = "Raça")]
         public Breed Breed { get; set; }
 
+        public int ColorID { get; set; }
         [Display(Name = "Cor")]
         public Color Color { get; set; }
 
+        public int OVHID { get; set; }
         public OVH OVH { get; set; }
 
         public List<Appointment> Appointments { get; set; }
