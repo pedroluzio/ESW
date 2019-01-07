@@ -41,7 +41,9 @@ namespace ProjetoESW.Controllers
             return View(specie);
         }
         
-        // TODO: Documentação
+        // <summary>My own create.</summary>
+        // <param name="name">The Specie name.</param>
+        [HttpPost]
         public async Task<IActionResult> MyCreate(string name)
         {
             _context.Add(new Specie(){Name = name,ID = 0,Breeds = null});
