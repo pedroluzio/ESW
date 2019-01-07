@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ProjetoESW.Models.Colony;
 
 namespace ProjetoESW.Models.Animals
 {
@@ -22,5 +23,8 @@ namespace ProjetoESW.Models.Animals
 
         public int OVHID { get; set; }
         public OVH OVH { get; set; }
+
+        public int ColonyID { get; set; }
+        public Colony Colony { get; set; }
     }
 }
