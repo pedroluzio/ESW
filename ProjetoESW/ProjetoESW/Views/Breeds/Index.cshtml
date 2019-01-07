@@ -78,48 +78,7 @@
             });
         }
 
-        function addMovement(id) {
-            swal({
-                text: 'Pretende dar entrada de que quantidade?',
-                content: "input",
-                input: 'number',
-                inputAttributes: {
-                    min: 0,
-                    max: 100,
-                    step: 1
-                }
-            }).then(function (result) {
-                $.ajax({
-                    type: "post",
-                    url: "/Movements/MyCreate?itemID=" + id + "&quantity=" + result.value,
-                    ajaxasync: true,
-                    success: function () {
-                        location.reload();
-                    }
-                });
-            });
-        }
-        function removeMovement(id) {
-            swal({
-                text: 'Pretende dar saída de que quantidade?',
-                content: "input",
-                input: 'number',
-                inputAttributes: {
-                    min: 0,
-                    max: 100,
-                    step: 1
-                }
-            }).then(function(result) {
-                $.ajax({
-                    type: "post",
-                    url: "/Movements/MyCreate?itemID=" + id + "&quantity=-" + result.value,
-                    ajaxasync: true,
-                    success: function() {
-                        location.reload();
-                    }
-                });
-            });
-        }
+        
 </script>
 
 <script src="~/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -134,7 +93,7 @@
 
 <script>
         //Exportable table
-        var table = $('#items').DataTable({
+        var table = $('#raças').DataTable({
             dom: 'Bfrtip',
             responsive: true,
             buttons: [

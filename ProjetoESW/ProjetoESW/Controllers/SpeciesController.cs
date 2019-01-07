@@ -46,6 +46,8 @@ namespace ProjetoESW.Controllers
         [HttpPost]
         public async Task<IActionResult> MyCreate(string name)
         {
+            if (SpecieExistsName(name))
+                return NotFound();
             _context.Add(new Specie(){Name = name,ID = 0,Breeds = null});
             await _context.SaveChangesAsync();
             return Accepted();
@@ -63,6 +65,11 @@ namespace ProjetoESW.Controllers
         private bool SpecieExists(int id)
         {
             return _context.Specie.Any(e => e.ID == id);
+        }
+
+        private bool SpecieExistsName(string name)
+        {
+            return _context.Specie.Any(e => e.Name.ToUpper().Equals(name.ToUpper()));
         }
     }
 }
