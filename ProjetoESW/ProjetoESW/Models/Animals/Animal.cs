@@ -23,9 +23,11 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Sexo")]
         public Gender Gender { get; set; }
 
+        public int BreedID { get; set; }
         [Display(Name = "Raça")]
         public Breed Breed { get; set; }
 
+        public int ColorID { get; set; }
         [Display(Name = "Cor")]
         public Color Color { get; set; }
 

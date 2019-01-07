@@ -13,6 +13,7 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Nome")]
         public string Name { get; set; }
 
+        public int SpecieID { get; set; }
         [Display(Name = "Espécie")]
         public Specie Specie { get; set; }
 
