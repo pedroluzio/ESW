@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Models;
 using ProjetoESW.Models.Stock;
+using ProjetoESW.Models.Animals;
 
 namespace ProjetoESW.Data
 {
@@ -52,5 +53,10 @@ namespace ProjetoESW.Data
         public DbSet<ProjetoESW.Models.Accounting> Accounting { get; set; }
 
         public DbSet<ProjetoESW.Models.AccountMovements> AccountMovements { get; set; }
+
+        public DbSet<ProjetoESW.Models.Animals.Specie> Specie { get; set; }
+
+        public DbSet<ProjetoESW.Models.Animals.Breed> Breed { get; set; }
+        
     }
 }

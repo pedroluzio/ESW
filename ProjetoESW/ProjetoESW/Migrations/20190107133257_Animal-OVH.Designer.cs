@@ -10,8 +10,8 @@ using ProjetoESW.Data;
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20181217215802_paraAzure")]
-    partial class paraAzure
+    [Migration("20190107133257_Animal-OVH")]
+    partial class AnimalOVH
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -124,6 +124,119 @@ namespace ProjetoESW.Migrations
                     b.HasIndex("AccountingID");
 
                     b.ToTable("AccountMovements");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Birthdate");
+
+                    b.Property<int?>("BreedID");
+
+                    b.Property<int?>("ColorID");
+
+                    b.Property<int>("Gender");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("OVHID");
+
+                    b.Property<int>("YearOfBirth");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("BreedID");
+
+                    b.HasIndex("ColorID");
+
+                    b.HasIndex("OVHID")
+                        .IsUnique();
+
+                    b.ToTable("Animal");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Appointment", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("AnimalID");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Note");
+
+                    b.Property<int?>("OVHID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("AnimalID");
+
+                    b.HasIndex("OVHID");
+
+                    b.ToTable("Appointment");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("SpecieID");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SpecieID");
+
+                    b.ToTable("Breed");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Color", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Color");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.OVH", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<string>("Note");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("OVH");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Specie", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Specie");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.ApplicationRole", b =>
@@ -326,6 +439,40 @@ namespace ProjetoESW.Migrations
                         .WithMany("Movements")
                         .HasForeignKey("AccountingID")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Animals.Breed", "Breed")
+                        .WithMany("Animals")
+                        .HasForeignKey("BreedID");
+
+                    b.HasOne("ProjetoESW.Models.Animals.Color", "Color")
+                        .WithMany()
+                        .HasForeignKey("ColorID");
+
+                    b.HasOne("ProjetoESW.Models.Animals.OVH", "OVH")
+                        .WithOne("Animal")
+                        .HasForeignKey("ProjetoESW.Models.Animals.Animal", "OVHID")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Appointment", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Animals.Animal", "Animal")
+                        .WithMany("Appointments")
+                        .HasForeignKey("AnimalID");
+
+                    b.HasOne("ProjetoESW.Models.Animals.OVH", "OVH")
+                        .WithMany()
+                        .HasForeignKey("OVHID");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+                {
+                    b.HasOne("ProjetoESW.Models.Animals.Specie", "Specie")
+                        .WithMany("Breeds")
+                        .HasForeignKey("SpecieID");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.ApplicationUserRole", b =>
