@@ -21,5 +21,6 @@ namespace ProjetoESW.Models.Colonies
         public string Coordinates { get; set; }
 
         public List<Appointment> Appointments { get; set; }
+        public List<Animal> Animals { get; set; }
     }
 }

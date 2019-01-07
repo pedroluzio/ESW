@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjetoESW.Models.Colonies;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -31,7 +32,12 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Cor")]
         public Color Color { get; set; }
 
+        [Display(Name = "Data da OVH")]
         public DateTime OVHDate { get; set; }
+
+        public int ColonyID { get; set; }
+        [Display(Name = "Colónia")]
+        public Colony Colony { get; set; }
 
         public List<Appointment> Appointments { get; set; }
 
