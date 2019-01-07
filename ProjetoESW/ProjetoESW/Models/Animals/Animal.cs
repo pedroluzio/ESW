@@ -31,8 +31,7 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Cor")]
         public Color Color { get; set; }
 
-        public int OVHID { get; set; }
-        public OVH OVH { get; set; }
+        public DateTime OVHDate { get; set; }
 
         public List<Appointment> Appointments { get; set; }
 

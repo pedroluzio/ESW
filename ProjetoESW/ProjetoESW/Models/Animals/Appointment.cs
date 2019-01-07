@@ -20,7 +20,6 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Animal")]
         public Animal Animal { get; set; }
 
-        public int OVHID { get; set; }
-        public OVH OVH { get; set; }
+        public bool OVH { get; set; }
     }
 }
