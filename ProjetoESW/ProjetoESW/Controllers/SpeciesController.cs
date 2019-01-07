@@ -21,7 +21,7 @@ namespace ProjetoESW.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Specie.ToListAsync());
+            return View(await _context.Specie.Include(b => b.Breeds).ToListAsync());
         }
 
         public async Task<IActionResult> Details(int? id)
@@ -41,7 +41,7 @@ namespace ProjetoESW.Controllers
             return View(specie);
         }
         
-        //Documentação TODO
+        // TODO: Documentação
         public async Task<IActionResult> MyCreate(string name)
         {
             _context.Add(new Specie(){Name = name,ID = 0,Breeds = null});
