@@ -16,13 +16,13 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Nota")]
         public string Note { get; set; }
 
-        public int AnimalID { get; set; }
+        public int? AnimalID { get; set; }
         [Display(Name = "Animal")]
         public Animal Animal { get; set; }
 
         public bool OVH { get; set; }
 
-        public int ColonyID { get; set; }
+        public int? ColonyID { get; set; }
         [Display(Name = "Colónia")]
         public Colony Colony { get; set; }
     }

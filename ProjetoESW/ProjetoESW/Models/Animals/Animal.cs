@@ -17,7 +17,7 @@ namespace ProjetoESW.Models.Animals
         public string Name{ get; set; }
 
         [Display(Name = "Data de Nascimento")]
-        public DateTime Birthdate { get; set; }
+        public DateTime? Birthdate { get; set; }
 
         [Display(Name = "Ano de Nascimento")]
         public int YearOfBirth { get; set; }
@@ -34,43 +34,13 @@ namespace ProjetoESW.Models.Animals
         public Color Color { get; set; }
    
         [Display(Name = "Data da OVH")]
-        public DateTime OVHDate { get; set; }
+        public DateTime? OVHDate { get; set; }
 
-        public int ColonyID { get; set; }
+        public int? ColonyID { get; set; }
         [Display(Name = "Colónia")]
         public Colony Colony { get; set; }
 
         public List<Appointment> Appointments { get; set; }
-
-        public Animal(string name, DateTime birthdate, Gender gender, int breedID, Breed breed, int colorID, Color color, DateTime ovhDate, int colonyID, Colony colony)
-        {
-            Name = name;
-            Birthdate = birthdate;
-            Gender = gender;
-            BreedID = breedID;
-            Breed = breed;
-            ColorID = colorID;
-            Color = color;
-            OVHDate = ovhDate;
-            ColonyID = colonyID;
-            Colony = colony;
-            YearOfBirth = 0;
-        }
-
-        public Animal(string name, int yearOfBirth, Gender gender, int breedID, Breed breed, int colorID, Color color, DateTime ovhDate, int colonyID, Colony colony)
-        {
-            Name = name;
-            YearOfBirth = yearOfBirth;
-            Gender = gender;
-            BreedID = breedID;
-            Breed = breed;
-            ColorID = colorID;
-            Color = color;
-            OVHDate = ovhDate;
-            ColonyID = colonyID;
-            Colony = colony;
-            YearOfBirth = 0;
-        }
 
         /// <summary>
         /// This method calculates the year of birth by the given age.
@@ -95,10 +65,10 @@ namespace ProjetoESW.Models.Animals
         /// This method returns the OVH date in dd/M/yyyy format.
         /// </summary>
         /// <returns>A string with the OVH date in dd/M/yyyy format</returns>
-        public string OVHDateString()
+        /*public string OVHDateString()
         {
             return OVHDate.ToString("dd/M/yyyy", CultureInfo.InvariantCulture);
-        }
+        }*/
 
         /// <summary>
         /// This method returns the note associated with the animal OVH.

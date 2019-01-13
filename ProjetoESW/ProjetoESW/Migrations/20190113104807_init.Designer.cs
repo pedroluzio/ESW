@@ -10,8 +10,8 @@ using ProjetoESW.Data;
 namespace ProjetoESW.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20190107133257_Animal-OVH")]
-    partial class AnimalOVH
+    [Migration("20190113104807_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,17 +132,19 @@ namespace ProjetoESW.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Birthdate");
+                    b.Property<DateTime?>("Birthdate");
 
-                    b.Property<int?>("BreedID");
+                    b.Property<int>("BreedID");
 
-                    b.Property<int?>("ColorID");
+                    b.Property<int?>("ColonyID");
+
+                    b.Property<int>("ColorID");
 
                     b.Property<int>("Gender");
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("OVHID");
+                    b.Property<DateTime?>("OVHDate");
 
                     b.Property<int>("YearOfBirth");
 
@@ -150,10 +152,9 @@ namespace ProjetoESW.Migrations
 
                     b.HasIndex("BreedID");
 
-                    b.HasIndex("ColorID");
+                    b.HasIndex("ColonyID");
 
-                    b.HasIndex("OVHID")
-                        .IsUnique();
+                    b.HasIndex("ColorID");
 
                     b.ToTable("Animal");
                 });
@@ -166,17 +167,19 @@ namespace ProjetoESW.Migrations
 
                     b.Property<int?>("AnimalID");
 
+                    b.Property<int?>("ColonyID");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<string>("Note");
 
-                    b.Property<int?>("OVHID");
+                    b.Property<bool>("OVH");
 
                     b.HasKey("ID");
 
                     b.HasIndex("AnimalID");
 
-                    b.HasIndex("OVHID");
+                    b.HasIndex("ColonyID");
 
                     b.ToTable("Appointment");
                 });
@@ -187,9 +190,10 @@ namespace ProjetoESW.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<int?>("SpecieID");
+                    b.Property<int>("SpecieID");
 
                     b.HasKey("ID");
 
@@ -209,21 +213,6 @@ namespace ProjetoESW.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Color");
-                });
-
-            modelBuilder.Entity("ProjetoESW.Models.Animals.OVH", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Note");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("OVH");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.Animals.Specie", b =>
@@ -274,6 +263,23 @@ namespace ProjetoESW.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("ProjetoESW.Models.Colonies.Colony", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Coordinates");
+
+                    b.Property<string>("Location");
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Colony");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.Stock.Item", b =>
@@ -445,15 +451,16 @@ namespace ProjetoESW.Migrations
                 {
                     b.HasOne("ProjetoESW.Models.Animals.Breed", "Breed")
                         .WithMany("Animals")
-                        .HasForeignKey("BreedID");
+                        .HasForeignKey("BreedID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ProjetoESW.Models.Colonies.Colony", "Colony")
+                        .WithMany("Animals")
+                        .HasForeignKey("ColonyID");
 
                     b.HasOne("ProjetoESW.Models.Animals.Color", "Color")
                         .WithMany()
-                        .HasForeignKey("ColorID");
-
-                    b.HasOne("ProjetoESW.Models.Animals.OVH", "OVH")
-                        .WithOne("Animal")
-                        .HasForeignKey("ProjetoESW.Models.Animals.Animal", "OVHID")
+                        .HasForeignKey("ColorID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -463,16 +470,17 @@ namespace ProjetoESW.Migrations
                         .WithMany("Appointments")
                         .HasForeignKey("AnimalID");
 
-                    b.HasOne("ProjetoESW.Models.Animals.OVH", "OVH")
-                        .WithMany()
-                        .HasForeignKey("OVHID");
+                    b.HasOne("ProjetoESW.Models.Colonies.Colony", "Colony")
+                        .WithMany("Appointments")
+                        .HasForeignKey("ColonyID");
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
                 {
                     b.HasOne("ProjetoESW.Models.Animals.Specie", "Specie")
                         .WithMany("Breeds")
-                        .HasForeignKey("SpecieID");
+                        .HasForeignKey("SpecieID")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ProjetoESW.Models.ApplicationUserRole", b =>
