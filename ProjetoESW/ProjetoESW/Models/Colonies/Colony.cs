@@ -17,6 +17,8 @@ namespace ProjetoESW.Models.Colonies
         [Display(Name = "Localização")]
         public string Location { get; set; }
 
+        public string Coordinates { get; set; }
+
         public List<Appointment> Appointments { get; set; }
         public List<Animal> Animals { get; set; }
 
@@ -25,6 +27,16 @@ namespace ProjetoESW.Models.Colonies
             if ((Animals is null || Animals.Count==0) && (Appointments is null || Appointments.Count==0))
                 return true;
             return false;
+        }
+
+        public string GetLatitude()
+        {
+            return Coordinates.Split(',')[0].Substring(1);
+        }
+
+        public string GetLongitude()
+        {
+            return Coordinates.Split(',')[1].Substring(1).Replace(')', ' ');
         }
     }
 }

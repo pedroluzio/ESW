@@ -54,7 +54,7 @@ namespace ProjetoESW.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Location")] Colony colony)
+        public async Task<IActionResult> Create([Bind("ID,Name,Location,Coordinates")] Colony colony)
         {
             if (ModelState.IsValid)
             {
@@ -67,8 +67,6 @@ namespace ProjetoESW.Controllers
 
         
         // POST: Colonies/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(int id)
         {
             var colony = await _context.Colony.FindAsync(id);

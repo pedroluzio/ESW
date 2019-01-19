@@ -10,31 +10,238 @@
         <h2>Criar novo Item</h2>
     </div>
     <div class="body clearfix" id="myDiv">
-            <form id="myForm" asp-action="Create">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Name" class="control-label"></label>
-                    <input asp-for="Name" class="form-control" />
-                    <span asp-validation-for="Name" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Location" class="control-label"></label>
-                    <input asp-for="Location" class="form-control" />
-                    <span asp-validation-for="Location" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </form> 
+        <div class="col-md-6" style="height:500px;" id="map"></div>
+
+        <form class="col-md-6" id="myForm" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Location" class="control-label"></label>
+                <input asp-for="Location" class="form-control" id="pac-input" placeholder="Localização"/>
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coordinates" class="control-label"></label>
+                <input asp-for="Coordinates" id"="coordinates" class="form-control" />
+                <span asp-validation-for="Coordinates" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+
+
     </div>
+
+
 </div>
 
+    <script>
+        $(document).keypress(function (e) {
+            if (e.keyCode === 13) {
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        /*$("#myForm").submit(function (e) {
+            e.preventDefault();
+        });*/
+        // This example adds a search box to a map, using the Google Place Autocomplete
+        // feature. People can enter geographical searches. The search box will return a
+        // pick list containing a mix of places and predicted search terms.
+
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        //<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds&libraries=places">
 
 
+        function initAutocomplete() {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: { lat: -33.8688, lng: 151.2195 },
+                zoom: 13,
+                mapTypeId: 'roadmap'
+            });
+
+            // Create the search box and link it to the UI element.
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            //map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+            // Bias the SearchBox results towards current map's viewport.
+            map.addListener('bounds_changed', function () {
+                searchBox.setBounds(map.getBounds());
+            });
+
+            var markers = [];
+            
+            //Attach click event handler to the map.
+            google.maps.event.addListener(map, 'click', function (e) {
+
+                // Clear out the old markers.
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                //Determine the location where the user has clicked.
+                var location = e.latLng;
+
+                //Create a marker and placed it on the map.
+                var marker  = new google.maps.Marker({
+                    position: location,
+                    map: map
+                });
+
+                document.getElementById("coordinates").value = location;
+
+                //Attach click event handler to the marker.
+                google.maps.event.addListener(marker, "click", function (e) {
+                    var infoWindow = new google.maps.InfoWindow({
+                        content: 'Latitude: ' + location.lat() + '<br />Longitude: ' + location.lng()
+                    });
+                    infoWindow.open(map, marker);
+                });
+
+                markers.push(marker);
+            });
+            
+            
+            // Listen for the event fired when the user selects a prediction and retrieve
+            // more details for that place.
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+
+                if (places.length == 0) {
+                    return;
+                }
+
+                // Clear out the old markers.
+                markers.forEach(function (marker) {
+                    marker.setMap(null);
+                });
+                markers = [];
+
+                // For each place, get the icon, name and location.
+                var bounds = new google.maps.LatLngBounds();
+                places.forEach(function (place) {
+                    if (!place.geometry) {
+                        console.log("Returned place contains no geometry");
+                        return;
+                    }
+                    var icon = {
+                        url: place.icon,
+                        size: new google.maps.Size(71, 71),
+                        origin: new google.maps.Point(0, 0),
+                        anchor: new google.maps.Point(17, 34),
+                        scaledSize: new google.maps.Size(25, 25)
+                    };
+
+                    // Create a marker for each place.
+                    markers.push(new google.maps.Marker({
+                        map: map,
+                        icon: icon,
+                        title: place.name,
+                        position: place.geometry.location
+                    }));
+
+                    if (place.geometry.viewport) {
+                        // Only geocodes have viewport.
+                        bounds.union(place.geometry.viewport);
+                    } else {
+                        bounds.extend(place.geometry.location);
+                    }
+                });
+                map.fitBounds(bounds);
+            });
+        }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds&libraries=places&callback=initAutocomplete"
+            async defer></script>
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds&libraries=places"></script>
+
+
+
+<style>
+    /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+    #map {
+        height: 100%;
+    }
+    /* Optional: Makes the sample page fill the window. */
+    html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    #description {
+        font-family: Roboto;
+        font-size: 15px;
+        font-weight: 300;
+    }
+
+    #infowindow-content .title {
+        font-weight: bold;
+    }
+
+    #infowindow-content {
+        display: none;
+    }
+
+    #map #infowindow-content {
+        display: inline;
+    }
+
+    .pac-card {
+        margin: 10px 10px 0 0;
+        border-radius: 2px 0 0 2px;
+        box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        outline: none;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        background-color: #fff;
+        font-family: Roboto;
+    }
+
+    #pac-container {
+        padding-bottom: 12px;
+        margin-right: 12px;
+    }
+
+    .pac-controls {
+        display: inline-block;
+        padding: 5px 11px;
+    }
+
+        .pac-controls label {
+            font-family: Roboto;
+            font-size: 13px;
+            font-weight: 300;
+        }
+
+    #title {
+        color: #fff;
+        background-color: #4d90fe;
+        font-size: 25px;
+        font-weight: 500;
+        padding: 6px 12px;
+    }
+
+    #target {
+        width: 345px;
+    }
+</style>
+
+<!-- // API Key - AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds -->
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-
-
-
 }
