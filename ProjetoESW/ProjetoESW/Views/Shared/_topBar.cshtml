@@ -1,21 +1,287 @@
-﻿<!-- Top Bar -->
-<nav class="navbar">
+﻿<style>
+    .navbar {
+        height: 104px;
+        border: 0px !important;
+        background-image: url("/images/header.png");
+        background-size: cover;
+    }
+
+        .navbar .container-fluid .navbar-header {
+            padding: 0px;
+            width: 100%;
+            height: 104px;
+        }
+
+            .navbar .container-fluid .navbar-header .logo-container {
+                width: 100%;
+                text-align: center;
+            }
+
+        .navbar .menu {
+            height: 40px;
+            background-color: #cf5c36;
+        }
+
+
+    section.content {
+        width: 90%;
+        margin: auto;
+        margin-top: 150px;
+    }
+
+
+    .topnav {
+        overflow: hidden;
+        background-color: #cf5c36;
+        text-align: center;
+    }
+
+        .topnav a {
+            display: inline-block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 7px 8px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+    a.active, button.active {
+        background-color: #5e3023;
+        color: white;
+    }
+
+    .topnav .icon {
+        display: none;
+    }
+
+        .topnav .icon:hover {
+            background-color: #cf5c36;
+        }
+
+    .ddropdown {
+        display: inline-block;
+    }
+
+        .ddropdown .dropbtn {
+            font-size: 17px;
+            border: none;
+            outline: none;
+            color: white;
+            padding: 7px 8px;
+            background-color: inherit;
+            font-family: inherit;
+            margin: 0;
+        }
+
+    .ddropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #cf5c36;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+        .ddropdown-content a {
+            float: none;
+            color: white;
+            padding: 6px 8px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+    .topnav a:hover,
+    .ddropdown:hover .dropbtn {
+        background-color: #5e3023;
+        color: white;
+    }
+
+    .ddropdown-content a:hover {
+        background-color: #5e3023;
+    }
+
+    .ddropdown:hover .ddropdown-content {
+        display: block;
+    }
+
+    @@media screen and (max-width: 600px) {
+
+        .topnav a {
+            float: left;
+            display: block;
+        }
+
+
+        .ddropdown {
+            display: block;
+        }
+
+            .topnav a:not(:first-child),
+            .ddropdown .dropbtn {
+                display: none;
+            }
+
+        .topnav a.icon {
+            float: right;
+            display: block;
+        }
+    }
+
+    @@media screen and (max-width: 600px) {
+
+        .topnav a {
+            float: left;
+            display: block;
+        }
+
+
+        .ddropdown {
+            display: block;
+        }
+
+        .topnav.responsive {
+            position: relative;
+        }
+
+            .topnav.responsive .icon {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+
+            .topnav.responsive a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+
+            .topnav.responsive .ddropdown {
+                float: none;
+            }
+
+            .topnav.responsive .ddropdown-content {
+                position: relative;
+            }
+
+            .topnav.responsive .ddropdown .dropbtn {
+                display: block;
+                width: 100%;
+                text-align: left;
+            }
+
+        .navbar-header {
+            margin: 0px;
+        }
+
+        .navbar,
+        .logo-container {
+            height: 50px;
+        }
+
+        .container-fluid {
+            height: 100%;
+        }
+
+        .logo-container img {
+            width: auto;
+            height: 100%;
+        }
+    }
+</style>
+
+
+<!-- Top Bar -->
+<nav class="navbar" style="">
     <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-            <a href="javascript:void(0);" class="bars"></a>
-            <a class="navbar-brand" id="top-bar">Sistema de Gestão de Albergue</a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-               
-                <li class="dropdown">
-                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">notifications</i>
-                        <span class="label-count"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                    </ul>
+        <div class="navbar-header" style="">
+            <div class="logo-container" style="width:100%; text-align:center;">
+                <img src="/images/headerLogo.png" />
+            </div>
         </div>
     </div>
+    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
+
+    <div class="topnav" id="myTopnav">
+
+
+
+
+
+        <a asp-area="" asp-controller="Home" asp-action="Index">
+            <i class="fa fa-home"></i> Início
+        </a>
+
+
+        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de RH"))
+        {
+            <div class="ddropdown">
+                <button class="dropbtn">
+                    <i class="fa fa-group"></i> Voluntários <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="ddropdown-content">
+                    <a asp-area="" asp-controller="Volunteers" asp-action="Index">
+                        <i class="fa fa-list"></i> Listagem
+                    </a>
+                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">
+                        <i class="fa fa-add"></i> Adicionar Novo
+                    </a>
+                </div>
+            </div>
+        }
+
+        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
+        {
+
+            <div class="ddropdown">
+                <button class="dropbtn">
+                    <i class="fa fa-group"></i> Stocks <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="ddropdown-content">
+                    <a asp-area="" asp-controller="ItemTypes" asp-action="Index">
+                        <i class="fa fa-list"></i> Tipos de Items
+                    </a>
+                    <a asp-area="" asp-controller="Items" asp-action="Index">
+                        <i class="fa fa-offer"></i> Items
+                    </a>
+                </div>
+            </div>
+        }
+
+        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
+        {
+            <a asp-area="" asp-controller="Accountings" asp-action="Index">
+                <i class="fa fa-money"></i> Área Financeira
+            </a>
+        }
+
+
+        @if (User.IsInRole("Administrator"))
+        {
+            <a asp-area="" asp-controller="User" asp-action="Index">
+                <i class="fa fa-user"></i> Utilizadores
+            </a>
+        }
+
+            <div class="ddropdown">
+                <button class="dropbtn" type="submit">
+                    <i class="fa fa-signout"></i> Sair
+                </button>
+            </div>
+            <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+    </div>
 </nav>
+            </form>
+<!-- #Top Bar -->
+
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+</script>

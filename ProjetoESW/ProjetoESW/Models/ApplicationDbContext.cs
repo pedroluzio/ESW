@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using ProjetoESW.Models;
 using ProjetoESW.Models.Stock;
 using ProjetoESW.Models.Animals;
+using ProjetoESW.Models.Colonies;
 
 namespace ProjetoESW.Data
 {
@@ -57,6 +58,10 @@ namespace ProjetoESW.Data
         public DbSet<ProjetoESW.Models.Animals.Specie> Specie { get; set; }
 
         public DbSet<ProjetoESW.Models.Animals.Breed> Breed { get; set; }
+
+        public DbSet<ProjetoESW.Models.Colonies.Colony> Colony { get; set; }
+
+        public DbSet<ProjetoESW.Models.Animals.Animal> Animal { get; set; }
         
     }
 }

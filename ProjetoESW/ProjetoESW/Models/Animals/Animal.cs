@@ -25,13 +25,14 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Sexo")]
         public Gender Gender { get; set; }
 
-        public int BreedID { get; set; }
         [Display(Name = "Raça")]
+        public int BreedID { get; set; }
+
         public Breed Breed { get; set; }
 
-        public int ColorID { get; set; }
+
         [Display(Name = "Cor")]
-        public Color Color { get; set; }
+        public String Color { get; set; }
    
         [Display(Name = "Data da OVH")]
         public DateTime? OVHDate { get; set; }
@@ -87,8 +88,6 @@ namespace ProjetoESW.Models.Animals
 
     public enum Gender
     {
-        [Description("Indefinido")] UNDEFINED,
-        [Description("Fêmea")] FEMALE,
-        [Description("Macho")] MALE
+        Indefinido, Fêmea, Macho
     }
 }
