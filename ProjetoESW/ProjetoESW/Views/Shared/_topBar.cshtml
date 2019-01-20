@@ -202,66 +202,77 @@
     </div>
     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
 
-    <div class="topnav" id="myTopnav">
+        <div class="topnav" id="myTopnav">
 
 
 
 
 
-        <a asp-area="" asp-controller="Home" asp-action="Index">
-            <i class="fa fa-home"></i> Início
-        </a>
-
-
-        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de RH"))
-        {
-            <div class="ddropdown">
-                <button class="dropbtn">
-                    <i class="fa fa-group"></i> Voluntários <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="ddropdown-content">
-                    <a asp-area="" asp-controller="Volunteers" asp-action="Index">
-                        <i class="fa fa-list"></i> Listagem
-                    </a>
-                    <a asp-area="" asp-controller="Volunteers" asp-action="Create">
-                        <i class="fa fa-add"></i> Adicionar Novo
-                    </a>
-                </div>
-            </div>
-        }
-
-        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
-        {
-
-            <div class="ddropdown">
-                <button class="dropbtn">
-                    <i class="fa fa-group"></i> Stocks <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="ddropdown-content">
-                    <a asp-area="" asp-controller="ItemTypes" asp-action="Index">
-                        <i class="fa fa-list"></i> Tipos de Items
-                    </a>
-                    <a asp-area="" asp-controller="Items" asp-action="Index">
-                        <i class="fa fa-offer"></i> Items
-                    </a>
-                </div>
-            </div>
-        }
-
-        @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
-        {
-            <a asp-area="" asp-controller="Accountings" asp-action="Index">
-                <i class="fa fa-money"></i> Área Financeira
+            <a asp-area="" asp-controller="Home" asp-action="Index">
+                <i class="fa fa-home"></i> Início
             </a>
-        }
 
 
-        @if (User.IsInRole("Administrator"))
-        {
-            <a asp-area="" asp-controller="User" asp-action="Index">
-                <i class="fa fa-user"></i> Utilizadores
+            @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de RH"))
+            {
+                <div class="ddropdown">
+                    <button class="dropbtn">
+                        <i class="fa fa-group"></i> Voluntários <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="ddropdown-content">
+                        <a asp-area="" asp-controller="Volunteers" asp-action="Index">
+                            <i class="fa fa-list"></i> Listagem
+                        </a>
+                        <a asp-area="" asp-controller="Volunteers" asp-action="Create">
+                            <i class="fa fa-user-plus "></i> Adicionar Novo
+                        </a>
+                    </div>
+                </div>
+            }
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
+            {
+
+                <div class="ddropdown">
+                    <button class="dropbtn">
+                        <i class="fa fa-warehouse "></i> Stocks <i class="fa fa-caret-down"></i>
+                    </button>
+                    <div class="ddropdown-content">
+                        <a asp-area="" asp-controller="ItemTypes" asp-action="Index">
+                            <i class="fa fa-list"></i> Tipos de Items
+                        </a>
+                        <a asp-area="" asp-controller="Items" asp-action="Index">
+                            <i class="fa fa-cookie-bite "></i> Items
+                        </a>
+                    </div>
+                </div>
+            }
+
+
+            <a asp-area="" asp-controller="Breeds" asp-action="Index">
+                <i class="fa fa-paw"></i> Raças
             </a>
-        }
+        
+            <a asp-area="" asp-controller="Colonies" asp-action="Index">
+                <i class="fa fa-cat"></i> Colónias
+            </a>
+
+            @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
+            {
+                <a asp-area="" asp-controller="Accountings" asp-action="Index">
+                    <i class="fa fa-money"></i> Área Financeira
+                </a>
+            }
+
+
+            @if (User.IsInRole("Administrator"))
+            {
+                <a asp-area="" asp-controller="User" asp-action="Index">
+                    <i class="fa fa-user"></i> Utilizadores
+                </a>
+            }
+
+
 
             <div class="ddropdown">
                 <button class="dropbtn" type="submit">
@@ -269,7 +280,7 @@
                 </button>
             </div>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-    </div>
+        </div>
 </nav>
             </form>
 <!-- #Top Bar -->

@@ -22,7 +22,7 @@ namespace ProjetoESW.Controllers
         // GET: Animals
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Animal.Include(a => a.Breed).Include(a => a.Colony).Include(a => a.Gender);
+            var applicationDbContext = _context.Animal.Include(a =>a.Breed).Include(b=>b.Colony);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -46,11 +46,12 @@ namespace ProjetoESW.Controllers
             return View(animal);
         }
 
-        // GET: Animals/Create
-        public IActionResult Create()
+        // GET: Animals/Create/2
+        public IActionResult Create(int? id)
         {
             ViewData["BreedID"] = new SelectList(_context.Breed, "ID", "Name");
             ViewData["ColonyID"] = new SelectList(_context.Colony, "ID", "ID");
+            ViewData["Colony"] = id;
             return View();
         }
 
@@ -58,38 +59,36 @@ namespace ProjetoESW.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,Birthdate,YearOfBirth,Gender,BreedID,Color,OVHDate,ColonyID")] Animal animal)
+        public async Task<IActionResult> MyCreate(string name, string dataNascimento, string anoNascimento, string breed, string color, string gender, string colony)
         {
-            if (ModelState.IsValid)
+
+            Gender newGender = Gender.Indefinido;
+
+            if (gender == "Fêmea")
+                newGender = Gender.Fêmea;
+            else if (gender == "Macho")
+                newGender = Gender.Macho;
+
+            Animal animal = new Animal()
             {
-                _context.Add(animal);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["BreedID"] = new SelectList(_context.Breed, "ID", "Name", animal.BreedID);
-            ViewData["ColonyID"] = new SelectList(_context.Colony, "ID", "ID", animal.ColonyID);
-            return View(animal);
+                Name = name,
+                BreedID = Convert.ToInt32(breed),
+                Color = color,
+                Gender = newGender,
+                ColonyID = Convert.ToInt32(colony)
+            };
+
+            if (!(dataNascimento is null))
+                animal.Birthdate = Convert.ToDateTime(dataNascimento);
+            else if (!(anoNascimento is null))
+                animal.YearOfBirth = Convert.ToInt32(anoNascimento);
+
+            _context.Add(animal);
+            await _context.SaveChangesAsync();
+            return Accepted();
         }
 
-        // GET: Animals/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var animal = await _context.Animal.FindAsync(id);
-            if (animal == null)
-            {
-                return NotFound();
-            }
-            ViewData["BreedID"] = new SelectList(_context.Breed, "ID", "Name", animal.BreedID);
-            ViewData["ColonyID"] = new SelectList(_context.Colony, "ID", "ID", animal.ColonyID);
-            return View(animal);
-        }
-
+      
         // POST: Animals/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -127,35 +126,13 @@ namespace ProjetoESW.Controllers
             return View(animal);
         }
 
-        // GET: Animals/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
 
-            var animal = await _context.Animal
-                .Include(a => a.Breed)
-                .Include(a => a.Colony)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (animal == null)
-            {
-                return NotFound();
-            }
-
-            return View(animal);
-        }
-
-        // POST: Animals/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var animal = await _context.Animal.FindAsync(id);
             _context.Animal.Remove(animal);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Accepted();
         }
 
         private bool AnimalExists(int id)

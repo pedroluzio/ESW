@@ -21,12 +21,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="Location" class="control-label"></label>
-                <input asp-for="Location" class="form-control" id="pac-input" placeholder="Localização"/>
+                <input asp-for="Location" class="form-control" id="pac-input" placeholder="Pesquise aqui uma localização"/>
                 <span asp-validation-for="Location" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Coordinates" class="control-label"></label>
-                <input asp-for="Coordinates" id"="coordinates" class="form-control" />
+                <input asp-for="Coordinates" id="coordinates" readonly="true" class="form-control" />
                 <span asp-validation-for="Coordinates" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -61,11 +61,34 @@
 
 
         function initAutocomplete() {
-            var map = new google.maps.Map(document.getElementById('map'), {
-                center: { lat: -33.8688, lng: 151.2195 },
-                zoom: 13,
-                mapTypeId: 'roadmap'
-            });
+
+
+            var pos = { lat: 38.55870505322026, lng: - 9.040355064339678 };
+            
+
+
+
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    //localStorage.setItem('pos', JSON.stringify(pos));
+                });
+            } 
+
+            if (localStorage.getItem("pos") != null)
+                pos = JSON.parse(localStorage.getItem('pos'));
+            
+            var map = new google.maps.Map(document.getElementById('map'),
+                {
+                    center: pos,
+                    zoom: 20,
+                    mapTypeId: 'satellite'
+                });
+            
 
             // Create the search box and link it to the UI element.
             var input = document.getElementById('pac-input');
@@ -96,7 +119,6 @@
                     position: location,
                     map: map
                 });
-
                 document.getElementById("coordinates").value = location;
 
                 //Attach click event handler to the marker.
@@ -148,6 +170,8 @@
                         title: place.name,
                         position: place.geometry.location
                     }));
+
+                    document.getElementById("coordinates").value = place.geometry.location.toString();
 
                     if (place.geometry.viewport) {
                         // Only geocodes have viewport.

@@ -22,7 +22,7 @@ namespace ProjetoESW.Controllers
         // GET: Breeds
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Breed.Include(b => b.Specie);
+            var applicationDbContext = _context.Breed.Include(b => b.Specie).Include(a => a.Animals);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -123,33 +123,12 @@ namespace ProjetoESW.Controllers
         }
 
         // GET: Breeds/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var breed = await _context.Breed
-                .Include(b => b.Specie)
-                .FirstOrDefaultAsync(m => m.ID == id);
-            if (breed == null)
-            {
-                return NotFound();
-            }
-
-            return View(breed);
-        }
-
-        // POST: Breeds/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             var breed = await _context.Breed.FindAsync(id);
             _context.Breed.Remove(breed);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Accepted();
         }
 
         private bool BreedExists(int id)

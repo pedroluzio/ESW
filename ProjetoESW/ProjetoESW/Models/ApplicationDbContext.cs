@@ -62,6 +62,8 @@ namespace ProjetoESW.Data
         public DbSet<ProjetoESW.Models.Colonies.Colony> Colony { get; set; }
 
         public DbSet<ProjetoESW.Models.Animals.Animal> Animal { get; set; }
+
+        public DbSet<ProjetoESW.Models.Animals.Appointment> Appointment { get; set; }
         
     }
 }

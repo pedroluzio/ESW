@@ -22,7 +22,7 @@ namespace ProjetoESW.Controllers
         // GET: Colonies
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Colony.ToListAsync());
+            return View(await _context.Colony.Include(a => a .Animals).ToListAsync());
         }
 
         // GET: Colonies/Details/5
@@ -33,7 +33,7 @@ namespace ProjetoESW.Controllers
                 return NotFound();
             }
 
-            var colony = await _context.Colony
+            var colony = await _context.Colony.Include(a => a.Appointments).Include(a =>a.Animals).ThenInclude(b => b.Breed)
                 .FirstOrDefaultAsync(m => m.ID == id);
             if (colony == null)
             {

@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ProjetoESW.Models.Animals
 {
@@ -28,6 +29,7 @@ namespace ProjetoESW.Models.Animals
         [Display(Name = "Raça")]
         public int BreedID { get; set; }
 
+        [Display(Name="Raça")]
         public Breed Breed { get; set; }
 
 
@@ -83,6 +85,39 @@ namespace ProjetoESW.Models.Animals
                     return appointment.Note;
             }
             return "";
+        }
+
+        public Boolean HaveHistory()
+        {
+            if (Appointments is null)
+                return false;
+            return Appointments.Count != 0;
+        }
+
+        public string Age()
+        {
+            DateTime Birth = Convert.ToDateTime(Birthdate);
+            if (!(Birthdate is null))
+            {
+                int years = DateTime.Now.Year - Birth.Year;
+                if ((Birth.Month > DateTime.Now.Month) || (Birth.Month == DateTime.Now.Month && Birth.Day > DateTime.Now.Day))
+                    years--;
+
+                if (years == 0)
+                {
+                    int months = (DateTime.Now.Year> Birth.Year? 12+DateTime.Now.Month - Birth.Month: DateTime.Now.Month - Birth.Month);
+                    if (months == 0)
+                        return DateTime.Now.Day - Birth.Day + " Dias";
+                    return months + " Meses";
+                }
+
+
+                return years + " Anos";
+            }
+
+                return "+/- " + (DateTime.Now.Year - Convert.ToInt32(YearOfBirth)) + " Anos";
+
+
         }
     }
 

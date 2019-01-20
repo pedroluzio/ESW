@@ -20,5 +20,13 @@ namespace ProjetoESW.Models.Animals
         public Specie Specie { get; set; }
 
         public List<Animal> Animals { get; set; }
+
+        public Boolean HaveAnimals()
+        {
+            if (Animals is null)
+                return false;
+
+            return Animals.Count != 0;
+        }
     }
 }

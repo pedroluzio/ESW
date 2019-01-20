@@ -34,9 +34,11 @@
                             @Html.DisplayFor(modelItem => item.Specie.Name)
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                            <a asp-controller="Breeds" asp-action="Details" asp-route-id="@item.ID"><i class="fa fa-eye"></i></a>
+                            @if (!item.HaveAnimals())
+                            {
+                                <a onclick="erase(@item.ID);" style="cursor: pointer;"><i class="fa fa-trash"></i></a>
+                            }
                         </td>
                     </tr>
                 }
@@ -55,7 +57,7 @@
         function erase(id) {
             swal({
                 title: "Confirmar?",
-                text: "Tem a certeza que pretende eliminsar este Tipo de Item?",
+                text: "Tem a certeza que pretende eliminar esta Raça?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#5e3023',
@@ -66,14 +68,14 @@
                 if (result.value) {
                     $.ajax({
                         type: "get",
-                        url: "/Items/Delete/" + id,
+                        url: "/Breeds/Delete/" + id,
                         ajaxasync: true,
                         success: function () {
                             location.reload();
                         }
                     });
                 } else {
-                    swal("Cancelado", "Tipo de Item não vai ser eliminado", "error");
+                    swal("Cancelado", "Raça não vai ser eliminada", "error");
                 }
             });
         }

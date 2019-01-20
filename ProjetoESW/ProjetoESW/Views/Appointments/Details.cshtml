@@ -1,0 +1,49 @@
+﻿@model ProjetoESW.Models.Animals.Appointment
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Appointment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Animal)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Animal.ID)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.OVH)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OVH)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Colony)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Colony.ID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

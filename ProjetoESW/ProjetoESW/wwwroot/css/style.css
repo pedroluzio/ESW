@@ -2364,6 +2364,7 @@
 /* General ===================================== */
 body {
   background-color: #fafafa;
+    background-image: url('../images/background/background2.jpg');
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   -webkit-transition: all 0.5s;
