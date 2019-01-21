@@ -38,5 +38,14 @@ namespace ProjetoESW.Models.Colonies
         {
             return Coordinates.Split(',')[1].Substring(1).Replace(')', ' ');
         }
+
+
+
+        public IOrderedEnumerable<Appointment> GetAppointments()
+        {
+            return Appointments
+                .OrderBy(x => x.Date < DateTime.Now)
+                .ThenBy(x => x.Date);
+        }
     }
 }

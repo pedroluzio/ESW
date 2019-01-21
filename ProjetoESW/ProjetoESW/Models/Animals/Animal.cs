@@ -53,7 +53,15 @@ namespace ProjetoESW.Models.Animals
         public int CalcularAno(int idade)
         {
             return DateTime.Now.Year - idade;
-        } 
+        }
+
+
+        public IOrderedEnumerable<Appointment> GetAppointments()
+        {
+            return Appointments
+                .OrderBy(x => x.Date < DateTime.Now)
+                .ThenBy(x => x.Date);
+        }
 
         /// <summary>
         /// This methods checks if an animal has OVH.
@@ -64,6 +72,14 @@ namespace ProjetoESW.Models.Animals
             return (OVHDate != null);
         }
 
+
+        public string GetOVHDate()
+        {
+            DateTime OVH = Convert.ToDateTime(OVHDate);
+            if (hasOVH())
+                return OVH.ToString("dd-MM-yyyy");
+            return "";
+        }
         /// <summary>
         /// This method returns the OVH date in dd/M/yyyy format.
         /// </summary>
@@ -117,6 +133,18 @@ namespace ProjetoESW.Models.Animals
 
                 return "+/- " + (DateTime.Now.Year - Convert.ToInt32(YearOfBirth)) + " Anos";
 
+
+        }
+
+        public string[] getBirthdayDetaisl()
+        {
+            if (!(Birthdate is null))
+            {
+                DateTime Birth = Convert.ToDateTime(Birthdate);
+                return new string[] {"Data de Nascimento:", Birth.ToString("dd-MM-yyyy")};
+            }
+
+            return new string[]{"Ano Aproximado de Nascimento:",YearOfBirth.ToString()};
 
         }
     }

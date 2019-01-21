@@ -252,10 +252,21 @@
             <a asp-area="" asp-controller="Breeds" asp-action="Index">
                 <i class="fa fa-paw"></i> Raças
             </a>
+            
+            <div class="ddropdown">
+                <button class="dropbtn">
+                    <i class="fa fa-cat "></i> Animais <i class="fa fa-caret-down"></i>
+                </button>
+                <div class="ddropdown-content">
+                    <a asp-area="" asp-controller="Animals" asp-action="Index">
+                        <i class="fa fa-cat"></i> Animais
+                    </a>
+                    <a asp-area="" asp-controller="Colonies" asp-action="Index">
+                        <i class="fa fa-cat"></i><i class="fa fa-cat"></i> Colónias
+                    </a>
+                </div>
+            </div>
         
-            <a asp-area="" asp-controller="Colonies" asp-action="Index">
-                <i class="fa fa-cat"></i> Colónias
-            </a>
 
             @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
             {
