@@ -2365,6 +2365,9 @@
 body {
   background-color: #fafafa;
     background-image: url('../images/background/background2.jpg');
+    background-repeat: no-repeat;
+
+    background-size: cover;
   -moz-transition: all 0.5s;
   -o-transition: all 0.5s;
   -webkit-transition: all 0.5s;

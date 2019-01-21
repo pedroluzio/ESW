@@ -1,5 +1,11 @@
 using System;
+using Moq;
+using ProjetoESW.Controllers;
+using ProjetoESW.Data;
 using Xunit;
+
+
+
 
 namespace ProjetoESWTest
 {
@@ -13,14 +19,13 @@ namespace ProjetoESWTest
             //preciso de um ApplicationDbContext!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1111
 
             var mockContext = new Mock<ApplicationDbContext>();
-            //var controller = new MembrosController(new ClubeContext(new DbContextOptions<ClubeContext>()));
+            var controller = new SpeciesController(mockContext.Object);
+          
+            //var result = controller.MyCreate("Cão");
 
-            //var controller = new MembrosController(mockContext.Object);
 
 
-            //var result = controller.AteMaioridade(idade);
 
-           // Assert.Equal(expected, result);
         }
     }
 }
