@@ -130,7 +130,25 @@ namespace ProjetoESW.Controllers
         [HttpPost]
         public async Task<IActionResult> MyCreate(string Date, string Appoint, int Colony)
         {
-            Appointment appointment = new Appointment() {Date = Convert.ToDateTime(Date), Note = Appoint, ColonyID = Colony};
+            Appointment appointment = new Appointment() { Date = Convert.ToDateTime(Date), Note = Appoint, ColonyID = Colony };
+            _context.Add(appointment);
+            await _context.SaveChangesAsync();
+            return Accepted();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> MyCreateAnimal(string Date, string Appoint, int Animal)
+        {
+            Appointment appointment = new Appointment() { Date = Convert.ToDateTime(Date), Note = Appoint, AnimalID = Animal };
+            _context.Add(appointment);
+            await _context.SaveChangesAsync();
+            return Accepted();
+
+        }
+        [HttpPost]
+        public async Task<IActionResult> MyCreateAnimalOVH(string Date, string Appoint, int Animal)
+        {
+            Appointment appointment = new Appointment() { Date = Convert.ToDateTime(Date), Note = Appoint, AnimalID = Animal, OVH = true};
             _context.Add(appointment);
             await _context.SaveChangesAsync();
             return Accepted();

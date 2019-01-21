@@ -1,67 +1,130 @@
-﻿@model ProjetoESW.Models.Animals.Animal
+﻿@using ProjetoESW.Models.Animals
+@model ProjetoESW.Models.Animals.Animal
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
-
-<h4>Animal</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<div class="card">
+    <div class="header">
+        <h2>Editar Animal</h2>
+    </div>
+    <div class="body clearfix">
+        <form asp-action="Edit" id="myForm">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
-            <div class="form-group">
+            <input type="hidden" asp-for="ColonyID" />
+            <div class="form-group col-md-6">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="Birthdate" class="control-label"></label>
-                <input asp-for="Birthdate" class="form-control" />
-                <span asp-validation-for="Birthdate" class="text-danger"></span>
+            <div class="form-group col-md-2">
+                <label class="control-label">Tipo de Data de Nascimento</label>
+                <select id="typeOfDate" onchange="typeOfDateChange()">
+                    <option value="birthdayDiv">Data de Nascimento Real</option>
+                    <option value="yearDiv">Ano Aproximado</option>
+                </select>
             </div>
-            <div class="form-group">
-                <label asp-for="YearOfBirth" class="control-label"></label>
-                <input asp-for="YearOfBirth" class="form-control" />
-                <span asp-validation-for="YearOfBirth" class="text-danger"></span>
+            <div class="col-md-4">
+                <div class="form-group col-md-12" id="birthdayDiv">
+                    <label asp-for="Birthdate" class="control-label"></label>
+                    <input asp-for="Birthdate" class="form-control"  id="birthday" />
+                    <span asp-validation-for="Birthdate" class="text-danger"></span>
+                </div>
+                <div class="form-group col-md-12" id="yearDiv">
+                    <label asp-for="YearOfBirth" class="control-label"></label>
+                    <input asp-for="YearOfBirth" id="year" class="form-control" />
+                    <span asp-validation-for="YearOfBirth" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Gender" class="control-label"></label>
-                <select asp-for="Gender" class="form-control"></select>
-                <span asp-validation-for="Gender" class="text-danger"></span>
-            </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="BreedID" class="control-label"></label>
                 <select asp-for="BreedID" class="form-control" asp-items="ViewBag.BreedID"></select>
                 <span asp-validation-for="BreedID" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group col-md-5">
                 <label asp-for="Color" class="control-label"></label>
                 <input asp-for="Color" class="form-control" />
                 <span asp-validation-for="Color" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="OVHDate" class="control-label"></label>
-                <input asp-for="OVHDate" class="form-control" />
-                <span asp-validation-for="OVHDate" class="text-danger"></span>
+            <div class="form-group col-md-2">
+                <label asp-for="Gender" class="control-label"></label>
+                <select asp-for="Gender" asp-items="Html.GetEnumSelectList<Gender>()" class="form-control"></select>
+                <span asp-validation-for="Gender" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ColonyID" class="control-label"></label>
-                <select asp-for="ColonyID" class="form-control" asp-items="ViewBag.ColonyID"></select>
-                <span asp-validation-for="ColonyID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <a onclick="editAnimal();" class="btn btn-primary btn-export">
+                    <i class="fa fa-save"></i> Guardar
+                </a>            
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+
+
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script src="~/plugins/momentjs/moment.js"></script>
+    <script src="~/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+    <script>
+        $('#birthday').bootstrapMaterialDatePicker({ weekStart: 0, time: false, maxDate: moment() });
+
+        
+        @if (!(Model.Birthdate is null))
+        {
+            <text>
+        document.getElementById("yearDiv").style.display = "none";
+        document.getElementById("birthday").value =
+            document.getElementById("birthday").value.substring(0, 10);
+            </text>
+        }
+        else {
+            <text>
+            document.getElementById("birthdayDiv").style.display = "none";
+            </text>
+        }
+
+        function clear() {
+            document.getElementById("birthdayDiv").style.display = "none";
+            document.getElementById("yearDiv").style.display = "none";
+
+            document.getElementById("year").value = "";
+            document.getElementById("birthday").value = "";
+        }
+
+        function typeOfDateChange() {
+            var x = document.getElementById("typeOfDate").value;
+
+            clear();
+            document.getElementById(x).style.display = "inline-block";
+        }
+
+
+        function editAnimal() {
+
+                 swal({
+                    title: 'Confirmar?',
+                    text: 'Pretende Editar os dados deste animal?',
+                    type: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                    showCancelButton: true
+                 }).then(function (result) {
+                     if(result.confirm)
+                     document.getElementById("myForm").submit();
+                 });
+        }
+
+    </script>
+
+
+
+}
