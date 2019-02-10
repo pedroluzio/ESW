@@ -1,4 +1,0 @@
-var searchData=
-[
-  ['errorviewmodel',['ErrorViewModel',['../class_projeto_e_s_w_1_1_models_1_1_error_view_model.html',1,'ProjetoESW::Models']]]
-];
