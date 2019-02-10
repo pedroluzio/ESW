@@ -126,7 +126,7 @@ namespace ProjetoESW.Migrations
                     b.ToTable("AccountMovements");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Animal", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -159,7 +159,7 @@ namespace ProjetoESW.Migrations
                     b.ToTable("Animal");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Appointment", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Appointment", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -184,7 +184,7 @@ namespace ProjetoESW.Migrations
                     b.ToTable("Appointment");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Breed", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -202,7 +202,7 @@ namespace ProjetoESW.Migrations
                     b.ToTable("Breed");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Color", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Color", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -215,7 +215,7 @@ namespace ProjetoESW.Migrations
                     b.ToTable("Color");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Specie", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Specie", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -447,26 +447,26 @@ namespace ProjetoESW.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Animal", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Animal", b =>
                 {
-                    b.HasOne("ProjetoESW.Models.Animals.Breed", "Breed")
-                        .WithMany("Animals")
+                    b.HasOne("ProjetoESW.Models.NumberAnimals.Breed", "Breed")
+                        .WithMany("NumberAnimals")
                         .HasForeignKey("BreedID")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ProjetoESW.Models.Colonies.Colony", "Colony")
-                        .WithMany("Animals")
+                        .WithMany("NumberAnimals")
                         .HasForeignKey("ColonyID");
 
-                    b.HasOne("ProjetoESW.Models.Animals.Color", "Color")
+                    b.HasOne("ProjetoESW.Models.NumberAnimals.Color", "Color")
                         .WithMany()
                         .HasForeignKey("ColorID")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Appointment", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Appointment", b =>
                 {
-                    b.HasOne("ProjetoESW.Models.Animals.Animal", "Animal")
+                    b.HasOne("ProjetoESW.Models.NumberAnimals.Animal", "Animal")
                         .WithMany("Appointments")
                         .HasForeignKey("AnimalID");
 
@@ -475,9 +475,9 @@ namespace ProjetoESW.Migrations
                         .HasForeignKey("ColonyID");
                 });
 
-            modelBuilder.Entity("ProjetoESW.Models.Animals.Breed", b =>
+            modelBuilder.Entity("ProjetoESW.Models.NumberAnimals.Breed", b =>
                 {
-                    b.HasOne("ProjetoESW.Models.Animals.Specie", "Specie")
+                    b.HasOne("ProjetoESW.Models.NumberAnimals.Specie", "Specie")
                         .WithMany("Breeds")
                         .HasForeignKey("SpecieID")
                         .OnDelete(DeleteBehavior.Cascade);

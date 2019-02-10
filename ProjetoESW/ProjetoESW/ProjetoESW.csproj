@@ -18,4 +18,8 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\plugins\jquery-countto\jquery.countTo.js" />
+  </ItemGroup>
+
 </Project>

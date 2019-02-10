@@ -29,11 +29,27 @@ namespace ProjetoESW.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var itemType = await _context.ItemType.Include(i => i.Items).ThenInclude(m => m.Movements).ToListAsync();
-                ModelIndex modelIndex = new ModelIndex() {ItemTypes = itemType};
+                var animals = await _context.Animal.ToListAsync();
+                int numAnimals = _context.Animal.Count();
+                int colonies = _context.Colony.Count();
+                var appointments = await _context.Appointment.Include(a => a.Colony).Include(a => a.Animal).ToListAsync();
+
+                ModelIndex modelIndex = new ModelIndex() {ItemTypes = itemType, Animals =animals,NumAnimals = numAnimals, Colonies = colonies, Appointments = appointments};
+
                 return View(modelIndex);
             }
 
             return Redirect("Identity/Account/Login");
+
+        }
+
+
+        /// <summary>Indexes this instance.</summary>
+        public async Task<IActionResult> SMS()
+        {
+                return View();
+            
+                
 
         }
 

@@ -19,14 +19,14 @@ namespace ProjetoESW.Controllers
             _context = context;
         }
 
-        // GET: Animals
+        // GET: NumberAnimals
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Animal.Include(a =>a.Breed).Include(b=>b.Colony).Include(a =>a.Appointments);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Animals/Details/5
+        // GET: NumberAnimals/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -47,7 +47,7 @@ namespace ProjetoESW.Controllers
             return View(animal);
         }
 
-        // GET: Animals/Create/2
+        // GET: NumberAnimals/Create/2
         public IActionResult Create(int? id)
         {
             ViewData["BreedID"] = new SelectList(_context.Breed, "ID", "Name");
@@ -56,7 +56,7 @@ namespace ProjetoESW.Controllers
             return View();
         }
 
-        // POST: Animals/Create
+        // POST: NumberAnimals/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -107,7 +107,7 @@ namespace ProjetoESW.Controllers
             return View(animal);
         }
 
-        // POST: Animals/Edit/5
+        // POST: NumberAnimals/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]

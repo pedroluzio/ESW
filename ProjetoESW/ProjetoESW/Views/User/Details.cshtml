@@ -71,7 +71,7 @@
         swal({
             text: 'Tem a certeza que pretende adicionar este cargo?'
         }).then(function (result) {
-            if (result.confirm) {
+            if (result.value) {
                 $.ajax({
                     type: "post",
                     url: "/User/AddRole?UserID=" + id + "&RoleID=" + document.getElementById("role").value,
@@ -88,7 +88,7 @@
         swal({
             text: 'Tem a certeza que pretende remover este cargo?'
         }).then(function (result) {
-            if (result.confirm) {
+            if (result.value) {
             $.ajax({
                 type: "post",
                 url: "/User/RemoveRole?UserID=" + user + "&RoleID=" + role,

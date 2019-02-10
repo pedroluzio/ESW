@@ -52,6 +52,80 @@
     </div>
 </div>
 
+
+
+
+
+<div class="card">
+    <div class="header">
+        <h2>Localização das Colónias</h2>
+    </div>
+    <div class="body">
+
+        <div style="height: 500px;" id="map"></div>
+    </div>
+</div>
+
+<script src="~/plugins/momentjs/moment.js"></script>
+<script src="~/plugins/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
+<script>
+
+
+    initAutocomplete();
+    //create empty LatLngBounds object
+   
+
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 38.55870505322026, lng: - 9.040355064339678 },
+            zoom: 50,
+            mapTypeId: 'satellite'
+        });
+
+        var locations = [];
+        @foreach (var item in Model)
+        {
+            <text>
+                locations.push(['@item.Name', @item.GetLatitude(), @item.GetLongitude()]);
+            </text>   
+        }
+        var bounds = new google.maps.LatLngBounds();
+        var infowindow = new google.maps.InfoWindow();    
+
+        for (i = 0; i < locations.length; i++) {  
+            var marker = new google.maps.Marker({
+                position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+                map: map
+            });
+
+            //extend the bounds to include each marker's position
+            bounds.extend(marker.position);
+
+            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                return function() {
+                    infowindow.setContent(locations[i][0]);
+                    infowindow.open(map, marker);
+                }
+            })(marker, i));
+        }
+
+//now fit the map to the newly inclusive bounds
+        map.fitBounds(bounds);
+        
+
+        
+    }
+
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds&libraries=places&callback=initAutocomplete"
+        async defer></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCUZ8_O03cS9hUMhJbTQ0rOIjskzNcDzds&libraries=places"></script>
+
+
+
+
 @section Scripts {
 
     <script>

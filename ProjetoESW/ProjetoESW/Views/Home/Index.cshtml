@@ -6,41 +6,161 @@
 @model ProjetoESW.Models.ModelIndex
 
 
+
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
-    
-    if (User.IsInRole("Administrator") || User.IsInRole("Gestor de Stocks"))
-     {
-         <div class="row">
-             <div class="col-md-4">
-                 <div class="card col-md-12">
-                     <div class="header">
-                         <h2>Estado dos Stocks</h2>
-                     </div>
-                     <div class="body">
-                         <div class="row clearfix">
-                             @foreach (var item in Model.LowStock())
-                             {
-                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-danger" style="padding: 0px;">@item.Description</a>
-                             }
-                             @foreach (var item in Model.MediumStock())
-                             {
-                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-warning" style="padding: 0px;">@item.Description</a>
-                             }
-                             @foreach (var item in Model.GoodStock())
-                             {
-                                 <a asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID" style="padding: 0px; margin-right: 30px;" class="alert alert-success" style="padding: 0px;">@item.Description</a>
-                             }
-                         </div>
-                     </div>
-                 </div>
 
-             </div>
-         </div>
-     }
+    <div class="row">
+        <div class="col-md-4">
+            <div id="listaApontamentos" class="card col-md-12">
+                <div class="header">
+                    <h2>Lista de Apontamentos</h2>
+                </div>
+                <div class="body">
+                    @foreach (var item in Model.Appointments.Where(a => a.Date > DateTime.Now).OrderBy(a => a.Date))
+                    {
+
+                        <p><b>@item.Date.ToString("dd-MM-yyyy")</b></p>
+                        <p>@item.Note</p>
+                        <hr />
+                    }
+                </div>
+            </div>
+            <div class="body bg-cyan col-md-12" style="padding: 10px; margin-top: 20px; margin-bottom: 20px;">
+                <div class="m-b--35 font-bold">Estado dos Stocks</div>
+                <ul class="dashboard-stat-list">
+                    @foreach (var item in Model.LowStock())
+                    {
+                        <li>
+                            <a style="color: white;" asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID">@item.Description</a>
+                            <span class="pull-right">
+                                Baixo
+                            </span>
+                        </li>
+                    }
+                    @foreach (var item in Model.MediumStock())
+                    {
+                        <li>
+                            <a style="color: white;" asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID">@item.Description</a>
+                            <span class="pull-right">
+                                Médio
+                            </span>
+                        </li>
+                    }
+                    @foreach (var item in Model.GoodStock())
+                    {
+                        <li>
+                            <a style="color: white;" asp-controller="ItemTypes" asp-action="Details" asp-route-id="@item.ID">@item.Description</a>
+                            <span class="pull-right">
+                                Alto
+                            </span>
+                        </li>
+                    }
+                </ul>
+            </div>
+
+        </div>
+        <div class="col-md-8">
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="info-box">
+                    <div class="icon bg-red">
+                        <i class="fa fa-paw"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Animais</div>
+                        <div class="number count-to" data-from="0" data-to="@Model.NumAnimals" data-speed="100" data-fresh-interval="20">@Model.NumAnimals</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="info-box">
+                    <div class="icon bg-orange">
+                        <i class="fa fa-cat"></i>
+                    </div>
+                    <div class="content">
+                        <div class="text">Colónias</div>
+                        <div class="number count-to" data-from="0" data-to="@Model.Colonies" data-speed="100" data-fresh-interval="20">@Model.Colonies</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="body">
+                        <p>Tipo de Items</p>
+                        <canvas id="tipoItems"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                <div class="card">
+                    <div class="body">
+                        <p>Animais por Género</p>
+                        <canvas id="generoAnimais"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div class="col-md-9">
+
+        </div>
+    </div>
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/js/mdb.min.js"></script>
+
+
+    <script>
+        var tipoItemsElement = document.getElementById("tipoItems").getContext('2d');
+        var tipoItems = new Chart(tipoItemsElement, {
+            type: 'doughnut',
+            data: {
+                labels: [@Html.Raw(Model.getStockNames())],
+                datasets: [{
+                    data: [@Model.getStockUnits()],
+                    backgroundColor: [@Html.Raw(Model.getColors(Model.ItemTypes.Count()))]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+
+        var generoAnimaisElemento = document.getElementById("generoAnimais").getContext('2d');
+        var generoAnimais = new Chart(generoAnimaisElemento, {
+            type: 'doughnut',
+            data: {
+                labels: ["Fêmea","Macho","Indefinido"],
+                datasets: [{
+                    data: [@Model.NumFemales(),@Model.NumMales(),@Model.NumUndefined()],
+                    backgroundColor: [@Html.Raw(Model.getColors(3))]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+    </script>
+
+
 }
 else
 {

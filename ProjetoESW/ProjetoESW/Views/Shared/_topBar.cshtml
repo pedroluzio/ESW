@@ -200,11 +200,11 @@
             </div>
         </div>
     </div>
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
 
-        <div class="topnav" id="myTopnav">
+    <div class="topnav" id="myTopnav">
 
 
+        <form style="margin: 0px;" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new {area = ""})" method="post" id="logoutForm">
 
 
 
@@ -252,7 +252,7 @@
             <a asp-area="" asp-controller="Breeds" asp-action="Index">
                 <i class="fa fa-paw"></i> Raças
             </a>
-            
+
             <div class="ddropdown">
                 <button class="dropbtn">
                     <i class="fa fa-cat "></i> Animais <i class="fa fa-caret-down"></i>
@@ -266,7 +266,7 @@
                     </a>
                 </div>
             </div>
-        
+
 
             @if (User.IsInRole("Administrator") || User.IsInRole("Gestor Financeiro"))
             {
@@ -291,9 +291,11 @@
                 </button>
             </div>
             <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-        </div>
+        </form>
+
+    </div>
+
 </nav>
-            </form>
 <!-- #Top Bar -->
 
 

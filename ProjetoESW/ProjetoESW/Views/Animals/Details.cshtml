@@ -146,7 +146,7 @@
                 dangerMode: true,
                 showCancelButton: true
             }).then(function (result) {
-                if(result.confirm)
+                if(result.value)
                     $.ajax({
                         type: "post",
                         url: "/Appointments/MyCreateAnimal?Date=" + Date + "&Appoint=" + Note + "&Animal=" + @Model.ID ,
@@ -208,7 +208,7 @@
                 dangerMode: true,
                 showCancelButton: true
         }).then(function (result) {
-            if(result.confirm)
+            if(result.value)
                 $.ajax({
                     type: "post",
                     url: "/Appointments/Delete/"+id,
